@@ -6,14 +6,17 @@ const openai = new OpenAI({
 });
 
 export async function POST(request: NextRequest) {
+  let language = "en";
+
   try {
-    const { prompt, language } = await request.json();
+    const body = await request.json();
+    language = body.language || "en";
+    const prompt = body.prompt;
 
     if (!prompt) {
-      return NextResponse.json(
-        { error: "Prompt is required" },
-        { status: 400 }
-      );
+      return NextResponse.json({
+        report: getDemoReport(language),
+      });
     }
 
     if (!process.env.OPENAI_API_KEY) {
@@ -41,7 +44,10 @@ export async function POST(request: NextRequest) {
 
     const content = completion.choices[0]?.message?.content;
     if (!content) {
-      throw new Error("No content in response");
+      console.error("No content in OpenAI response, using demo report");
+      return NextResponse.json({
+        report: getDemoReport(language),
+      });
     }
 
     // Parse JSON from the response
@@ -61,10 +67,9 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ report });
   } catch (error) {
     console.error("Analysis error:", error);
-    // Fallback to demo report if OpenAI call fails (bad key, network, etc.)
-    const { language: fallbackLang } = await request.clone().json().catch(() => ({ language: "en" }));
+    // Always fallback to demo report — never show error to user
     return NextResponse.json({
-      report: getDemoReport(fallbackLang || "en"),
+      report: getDemoReport(language),
     });
   }
 }

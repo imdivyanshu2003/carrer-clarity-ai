@@ -22,7 +22,9 @@ export async function POST(request: NextRequest) {
     }
 
     const transporter = nodemailer.createTransport({
-      service: "gmail",
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true,
       auth: {
         user: process.env.SMTP_EMAIL,
         pass: process.env.SMTP_PASSWORD,
@@ -43,10 +45,12 @@ export async function POST(request: NextRequest) {
     });
 
     return NextResponse.json({ success: true });
-  } catch (error) {
-    console.error("Email send error:", error);
+  } catch (error: any) {
+    console.error("Email send error:", error?.message || error);
+    console.error("Email error code:", error?.code);
+    console.error("Email error response:", error?.response);
     return NextResponse.json(
-      { error: "Failed to send email" },
+      { error: "Failed to send email", details: error?.message || "Unknown error" },
       { status: 500 }
     );
   }
