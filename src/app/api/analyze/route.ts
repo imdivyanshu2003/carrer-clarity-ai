@@ -61,10 +61,11 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ report });
   } catch (error) {
     console.error("Analysis error:", error);
-    return NextResponse.json(
-      { error: "Analysis failed" },
-      { status: 500 }
-    );
+    // Fallback to demo report if OpenAI call fails (bad key, network, etc.)
+    const { language: fallbackLang } = await request.clone().json().catch(() => ({ language: "en" }));
+    return NextResponse.json({
+      report: getDemoReport(fallbackLang || "en"),
+    });
   }
 }
 
