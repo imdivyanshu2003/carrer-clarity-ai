@@ -68,14 +68,27 @@ export default function ReportPage() {
   const handleDownloadPDF = async () => {
     if (!reportRef.current) return;
     const html2pdf = (await import("html2pdf.js")).default;
+
+    // Add dark background for PDF rendering
+    const el = reportRef.current;
+    el.style.background = "#0f0a1e";
+    el.style.padding = "20px";
+    el.style.borderRadius = "0";
+
     const opt = {
       margin: [10, 10],
       filename: "Career-Clarity-Report.pdf",
       image: { type: "jpeg", quality: 0.98 },
-      html2canvas: { scale: 2, useCORS: true },
+      html2canvas: { scale: 2, useCORS: true, backgroundColor: "#0f0a1e" },
       jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
     };
-    html2pdf().set(opt).from(reportRef.current).save();
+
+    await html2pdf().set(opt).from(el).save();
+
+    // Restore original styles
+    el.style.background = "";
+    el.style.padding = "";
+    el.style.borderRadius = "";
   };
 
   const buildReportSummary = () => {
