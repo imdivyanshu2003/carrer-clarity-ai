@@ -12,6 +12,7 @@ interface AppContextType extends AppState {
   setIsAnalyzing: (analyzing: boolean) => void;
   setPaymentOrderId: (orderId: string) => void;
   setWhatsappNumber: (num: string) => void;
+  setUserEmail: (email: string) => void;
   reset: () => void;
 }
 
@@ -24,6 +25,7 @@ const initialState: AppState = {
   isAnalyzing: false,
   paymentOrderId: null,
   whatsappNumber: "",
+  userEmail: "",
 };
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -74,6 +76,10 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     setState((prev) => ({ ...prev, whatsappNumber: num }));
   }, []);
 
+  const setUserEmail = useCallback((email: string) => {
+    setState((prev) => ({ ...prev, userEmail: email }));
+  }, []);
+
   const reset = useCallback(() => {
     setState(initialState);
   }, []);
@@ -90,6 +96,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         setIsAnalyzing,
         setPaymentOrderId,
         setWhatsappNumber,
+        setUserEmail,
         reset,
       }}
     >

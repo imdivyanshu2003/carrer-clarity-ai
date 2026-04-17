@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import {
@@ -16,14 +16,18 @@ import {
   RotateCcw,
   MessageCircle,
   Shield,
+  Mail,
+  CheckCircle,
 } from "lucide-react";
 import { useApp } from "@/context/AppContext";
 import { CareerReport, Language } from "@/lib/types";
 
 export default function ReportPage() {
   const router = useRouter();
-  const { language, report, isPaid, whatsappNumber, reset } = useApp();
+  const { language, report, isPaid, whatsappNumber, userEmail, reset } = useApp();
   const reportRef = useRef<HTMLDivElement>(null);
+  const [emailSent, setEmailSent] = useState(false);
+  const [emailSending, setEmailSending] = useState(false);
 
   useEffect(() => {
     if (!language || !report) {
@@ -34,6 +38,30 @@ export default function ReportPage() {
       router.push("/payment");
     }
   }, [language, report, isPaid, router]);
+
+  // Auto-send report via email on page load
+  useEffect(() => {
+    if (language && report && isPaid && userEmail && !emailSent) {
+      sendReportEmail();
+    }
+  }, [language, report, isPaid, userEmail]);
+
+  const sendReportEmail = async () => {
+    if (!userEmail || emailSending) return;
+    setEmailSending(true);
+    try {
+      await fetch("/api/send-report", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: userEmail, report, language }),
+      });
+      setEmailSent(true);
+    } catch (error) {
+      console.error("Email send failed:", error);
+    } finally {
+      setEmailSending(false);
+    }
+  };
 
   if (!language || !report || !isPaid) return null;
 
@@ -161,16 +189,32 @@ export default function ReportPage() {
       {/* Action buttons - sticky top */}
       <div className="sticky top-0 z-40 bg-gradient-to-b from-brand-700/90 to-transparent backdrop-blur-sm pb-4 no-print">
         <div className="max-w-2xl mx-auto flex flex-col gap-2">
-          <motion.button
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={handleGetOnWhatsApp}
-            className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-green-600 
-                       hover:bg-green-700 transition-all text-sm font-semibold"
-          >
-            <MessageCircle size={16} />
-            {t.getOnWhatsApp}
-          </motion.button>
+          {/* Email status banner */}
+          {userEmail && (
+            <div className={`flex items-center justify-center gap-2 py-2 rounded-lg text-xs ${
+              emailSent ? "bg-green-500/10 text-green-300" : emailSending ? "bg-brand-500/10 text-brand-300" : "bg-white/5 text-white/40"
+            }`}>
+              {emailSending ? (
+                <>
+                  <div className="w-3 h-3 border-2 border-brand-300/30 border-t-brand-300 rounded-full animate-spin" />
+                  {language === "hi" ? `${userEmail} पर report भेज रहे हैं...` : `Sending report to ${userEmail}...`}
+                </>
+              ) : emailSent ? (
+                <>
+                  <CheckCircle size={12} />
+                  {language === "hi" ? `Report ${userEmail} पर भेज दी गई!` : `Report sent to ${userEmail}!`}
+                </>
+              ) : (
+                <>
+                  <Mail size={12} />
+                  <button onClick={sendReportEmail} className="underline hover:text-white/60">
+                    {language === "hi" ? `${userEmail} पर report भेजें` : `Send report to ${userEmail}`}
+                  </button>
+                </>
+              )}
+            </div>
+          )}
+
           <div className="flex gap-2">
             <motion.button
               whileHover={{ scale: 1.02 }}
@@ -182,16 +226,29 @@ export default function ReportPage() {
               <Download size={16} />
               {t.download}
             </motion.button>
-            <motion.button
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              onClick={handleShareReport}
-              className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-white/10 
-                         hover:bg-white/20 transition-all text-sm font-medium border border-white/10"
-            >
-              <Share2 size={16} />
-              {t.share}
-            </motion.button>
+            {whatsappNumber ? (
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={handleGetOnWhatsApp}
+                className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-green-600 
+                           hover:bg-green-700 transition-all text-sm font-medium"
+              >
+                <MessageCircle size={16} />
+                {t.getOnWhatsApp}
+              </motion.button>
+            ) : (
+              <motion.button
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.98 }}
+                onClick={handleShareReport}
+                className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-white/10 
+                           hover:bg-white/20 transition-all text-sm font-medium border border-white/10"
+              >
+                <Share2 size={16} />
+                {t.share}
+              </motion.button>
+            )}
           </div>
         </div>
       </div>

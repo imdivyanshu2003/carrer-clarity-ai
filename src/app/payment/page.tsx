@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { Lock, CheckCircle, Sparkles, FileText, Ban, Zap, Shield, Phone } from "lucide-react";
+import { Lock, CheckCircle, Sparkles, FileText, Ban, Zap, Shield, Phone, Mail } from "lucide-react";
 import { useApp } from "@/context/AppContext";
 
 declare global {
@@ -14,9 +14,11 @@ declare global {
 
 export default function PaymentPage() {
   const router = useRouter();
-  const { language, report, isPaid, setIsPaid, whatsappNumber, setWhatsappNumber } = useApp();
+  const { language, report, isPaid, setIsPaid, whatsappNumber, setWhatsappNumber, userEmail, setUserEmail } = useApp();
   const [isProcessing, setIsProcessing] = useState(false);
+  const [emailInput, setEmailInput] = useState(userEmail || "");
   const [phoneInput, setPhoneInput] = useState(whatsappNumber || "");
+  const [emailError, setEmailError] = useState("");
   const [phoneError, setPhoneError] = useState("");
 
   useEffect(() => {
@@ -42,23 +44,52 @@ export default function PaymentPage() {
 
   if (!language || !report) return null;
 
+  const validateEmail = (email: string) => {
+    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
+  };
+
   const validatePhone = (num: string) => {
+    if (!num) return true; // Optional field
     const cleaned = num.replace(/[\s\-()]/g, "");
     return /^(\+91)?[6-9]\d{9}$/.test(cleaned);
   };
 
-  const handlePayment = async () => {
-    if (!validatePhone(phoneInput)) {
+  const validateInputs = () => {
+    let valid = true;
+    if (!validateEmail(emailInput)) {
+      setEmailError(
+        language === "hi"
+          ? "कृपया सही Email ID डालें"
+          : "Please enter a valid email address"
+      );
+      valid = false;
+    } else {
+      setEmailError("");
+    }
+    if (phoneInput && !validatePhone(phoneInput)) {
       setPhoneError(
         language === "hi"
           ? "कृपया सही WhatsApp number डालें (10 digits)"
           : "Please enter a valid WhatsApp number (10 digits)"
       );
-      return;
+      valid = false;
+    } else {
+      setPhoneError("");
     }
-    setPhoneError("");
-    const cleaned = phoneInput.replace(/[\s\-()]/g, "").replace(/^\+91/, "");
-    setWhatsappNumber(cleaned);
+    return valid;
+  };
+
+  const saveUserDetails = () => {
+    setUserEmail(emailInput.trim());
+    if (phoneInput) {
+      const cleaned = phoneInput.replace(/[\s\-()]/g, "").replace(/^\+91/, "");
+      setWhatsappNumber(cleaned);
+    }
+  };
+
+  const handlePayment = async () => {
+    if (!validateInputs()) return;
+    saveUserDetails();
     setIsProcessing(true);
 
     try {
@@ -136,16 +167,8 @@ export default function PaymentPage() {
 
   // For demo/testing — skip payment
   const handleDemoAccess = () => {
-    if (!validatePhone(phoneInput)) {
-      setPhoneError(
-        language === "hi"
-          ? "कृपया सही WhatsApp number डालें (10 digits)"
-          : "Please enter a valid WhatsApp number (10 digits)"
-      );
-      return;
-    }
-    const cleaned = phoneInput.replace(/[\s\-()]/g, "").replace(/^\+91/, "");
-    setWhatsappNumber(cleaned);
+    if (!validateInputs()) return;
+    saveUserDetails();
     setIsPaid(true);
     router.push("/report");
   };
@@ -163,9 +186,12 @@ export default function PaymentPage() {
     secure: "Secure payment via Razorpay",
     disclaimer: "AI-based suggestions — professional counseling की जगह नहीं",
     demo: "Demo Access (Testing)",
-    whatsappLabel: "आपका WhatsApp Number",
+    emailLabel: "आपकी Email ID",
+    emailPlaceholder: "जैसे: name@gmail.com",
+    emailHint: "Report इस email पर भेजी जाएगी",
+    whatsappLabel: "WhatsApp Number (optional)",
     whatsappPlaceholder: "जैसे: 9876543210",
-    whatsappHint: "Report इस number पर WhatsApp से भेजी जाएगी",
+    whatsappHint: "चाहें तो WhatsApp पर भी report पा सकते हैं",
   } : {
     ready: "Your Report is Ready!",
     subtitle: "AI has analyzed your personality and created a detailed career guidance report",
@@ -179,9 +205,12 @@ export default function PaymentPage() {
     secure: "Secure payment via Razorpay",
     disclaimer: "AI-based suggestions — not a substitute for professional counseling",
     demo: "Demo Access (Testing)",
-    whatsappLabel: "Your WhatsApp Number",
+    emailLabel: "Your Email ID",
+    emailPlaceholder: "e.g. name@gmail.com",
+    emailHint: "Report will be delivered to this email",
+    whatsappLabel: "WhatsApp Number (optional)",
     whatsappPlaceholder: "e.g. 9876543210",
-    whatsappHint: "Report will be sent to this number via WhatsApp",
+    whatsappHint: "Optionally get report on WhatsApp too",
   };
 
   return (
@@ -226,7 +255,31 @@ export default function PaymentPage() {
             ))}
           </div>
 
-          {/* WhatsApp Number Input */}
+          {/* Email Input (Required) */}
+          <div className="text-left mb-4">
+            <label className="flex items-center gap-2 text-sm font-medium mb-2">
+              <Mail size={14} className="text-brand-300" />
+              {t.emailLabel} <span className="text-red-400">*</span>
+            </label>
+            <input
+              type="email"
+              value={emailInput}
+              onChange={(e) => {
+                setEmailInput(e.target.value);
+                setEmailError("");
+              }}
+              placeholder={t.emailPlaceholder}
+              className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 
+                         text-white placeholder-white/30 focus:outline-none focus:border-brand-400 
+                         transition-colors text-sm"
+            />
+            {emailError && (
+              <p className="text-xs text-red-400 mt-1">{emailError}</p>
+            )}
+            <p className="text-xs text-white/30 mt-1.5">{t.emailHint}</p>
+          </div>
+
+          {/* WhatsApp Number Input (Optional) */}
           <div className="text-left mb-6">
             <label className="flex items-center gap-2 text-sm font-medium mb-2">
               <Phone size={14} className="text-green-400" />

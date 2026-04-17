@@ -86,4 +86,5 @@ export interface AppState {
   isAnalyzing: boolean;
   paymentOrderId: string | null;
   whatsappNumber: string;
+  userEmail: string;
 }
