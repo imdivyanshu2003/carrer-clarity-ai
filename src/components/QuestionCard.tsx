@@ -56,7 +56,7 @@ export default function QuestionCard({
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-xl md:text-2xl font-semibold leading-relaxed mb-2"
+            className="text-xl md:text-2xl font-bold text-slate-900 leading-relaxed mb-2"
           >
             {question.text[language]}
           </motion.h2>
@@ -65,7 +65,7 @@ export default function QuestionCard({
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ delay: 0.2 }}
-              className="text-sm text-white/50"
+              className="text-sm text-slate-500"
             >
               {question.subtitle[language]}
             </motion.p>
@@ -73,7 +73,7 @@ export default function QuestionCard({
         </div>
 
         {question.type === "mcq" && question.options && (
-          <div className="space-y-3">
+          <div className="space-y-2.5">
             {question.options.map((option, i) => (
               <motion.button
                 key={option.id}
@@ -81,26 +81,26 @@ export default function QuestionCard({
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.15 + i * 0.08 }}
                 onClick={() => handleOptionClick(option.id)}
-                className={`w-full text-left p-4 rounded-xl border transition-all duration-300
+                className={`w-full text-left p-4 rounded-xl border transition-all duration-200
                   ${
                     selected === option.id
-                      ? "bg-brand-500/30 border-brand-400 scale-[1.02]"
-                      : "bg-white/5 border-white/10 hover:bg-white/10 hover:border-white/20"
+                      ? "bg-violet-50 border-violet-400 ring-2 ring-violet-200 scale-[1.01]"
+                      : "bg-white border-slate-200 hover:border-violet-300 hover:shadow-md hover:shadow-violet-100/50"
                   }
                 `}
               >
                 <div className="flex items-center gap-3">
                   <span
-                    className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium shrink-0
+                    className={`w-8 h-8 rounded-lg flex items-center justify-center text-sm font-bold shrink-0 transition-colors
                     ${
                       selected === option.id
-                        ? "bg-brand-500 text-white"
-                        : "bg-white/10 text-white/60"
+                        ? "bg-violet-600 text-white"
+                        : "bg-slate-100 text-slate-600"
                     }`}
                   >
                     {String.fromCharCode(65 + i)}
                   </span>
-                  <span className="text-sm md:text-base">
+                  <span className="text-sm md:text-base text-slate-800 font-medium">
                     {option.text[language]}
                   </span>
                 </div>
@@ -124,23 +124,21 @@ export default function QuestionCard({
                   ? "यहां अपना जवाब लिखें..."
                   : "Type your answer here..."
               }
-              className="w-full h-32 p-4 rounded-xl bg-white/5 border border-white/10 
-                         text-white placeholder-white/30 resize-none focus:outline-none 
-                         focus:border-brand-400 transition-colors"
+              className="w-full h-32 p-4 rounded-xl bg-white border border-slate-200
+                         text-slate-900 placeholder-slate-400 resize-none focus:outline-none 
+                         focus:border-violet-400 focus:ring-2 focus:ring-violet-100 transition-all"
               maxLength={500}
             />
             <div className="flex justify-between items-center">
-              <span className="text-xs text-white/40">
+              <span className="text-xs text-slate-400">
                 {openText.length}/500
               </span>
               <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
                 onClick={handleSubmit}
                 disabled={!openText.trim()}
-                className="flex items-center gap-2 px-6 py-3 rounded-xl bg-brand-500 
-                           hover:bg-brand-600 disabled:opacity-40 disabled:cursor-not-allowed
-                           transition-all font-medium"
+                className="btn-primary disabled:opacity-40 disabled:cursor-not-allowed"
               >
                 {language === "hi" ? "आगे बढ़ें" : "Continue"}
                 <ChevronRight size={18} />

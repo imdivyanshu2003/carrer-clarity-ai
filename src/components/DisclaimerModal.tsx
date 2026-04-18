@@ -47,32 +47,36 @@ export default function DisclaimerModal({
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+      className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
     >
       <motion.div
-        initial={{ scale: 0.9, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        exit={{ scale: 0.9, opacity: 0 }}
-        className="bg-gradient-to-br from-brand-800 to-indigo-900 rounded-2xl p-6 max-w-md w-full
-                   border border-white/10 shadow-2xl"
+        initial={{ scale: 0.95, opacity: 0, y: 10 }}
+        animate={{ scale: 1, opacity: 1, y: 0 }}
+        exit={{ scale: 0.95, opacity: 0 }}
+        className="bg-white rounded-2xl p-7 max-w-md w-full
+                   border border-slate-200 shadow-2xl"
       >
         <div className="flex items-center justify-between mb-5">
-          <div className="flex items-center gap-2">
-            <ShieldCheck size={22} className="text-brand-300" />
-            <h3 className="text-lg font-semibold">{t.title}</h3>
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-xl bg-violet-50 flex items-center justify-center">
+              <ShieldCheck size={20} className="text-violet-600" />
+            </div>
+            <h3 className="text-lg font-bold text-slate-900">{t.title}</h3>
           </div>
           <button
             onClick={onClose}
-            className="text-white/40 hover:text-white/70 transition-colors"
+            className="text-slate-400 hover:text-slate-700 transition-colors"
           >
             <X size={20} />
           </button>
         </div>
 
-        <ul className="space-y-3 mb-6">
+        <ul className="space-y-3 mb-7">
           {t.points.map((point, i) => (
-            <li key={i} className="flex gap-3 text-sm text-white/70">
-              <span className="text-brand-400 mt-0.5 shrink-0">&#10003;</span>
+            <li key={i} className="flex gap-3 text-sm text-slate-600 leading-relaxed">
+              <span className="w-5 h-5 rounded-full bg-violet-100 flex items-center justify-center text-violet-700 text-[10px] font-bold shrink-0 mt-0.5">
+                &#10003;
+              </span>
               <span>{point}</span>
             </li>
           ))}
@@ -81,8 +85,7 @@ export default function DisclaimerModal({
         <div className="flex gap-3">
           <button
             onClick={onClose}
-            className="flex-1 py-3 rounded-xl border border-white/10 text-white/60 
-                       hover:bg-white/5 transition-all text-sm"
+            className="btn-secondary flex-1"
           >
             {t.back}
           </button>
@@ -90,8 +93,7 @@ export default function DisclaimerModal({
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             onClick={onAccept}
-            className="flex-1 py-3 rounded-xl bg-brand-500 hover:bg-brand-600 
-                       transition-all text-sm font-medium"
+            className="btn-primary flex-1"
           >
             {t.accept}
           </motion.button>

@@ -5,8 +5,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 :root {
-  --gradient-start: #7c3aed;
-  --gradient-end: #4f46e5;
+  --brand-primary: #7c3aed;
+  --brand-dark: #6d28d9;
+  --brand-light: #a78bfa;
 }
 
 * {
@@ -15,33 +16,70 @@
   box-sizing: border-box;
 }
 
-body {
+html, body {
   font-family: 'Inter', system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  color: #1e293b;
+}
+
+body {
+  background: #fafaff;
+  background-image:
+    radial-gradient(at 10% 0%, rgba(167, 139, 250, 0.18) 0px, transparent 55%),
+    radial-gradient(at 90% 10%, rgba(244, 114, 182, 0.12) 0px, transparent 55%),
+    radial-gradient(at 50% 100%, rgba(129, 140, 248, 0.12) 0px, transparent 55%);
+  background-attachment: fixed;
+  min-height: 100vh;
 }
 
 @layer utilities {
-  .gradient-bg {
-    @apply bg-gradient-to-br from-brand-600 via-brand-700 to-indigo-800;
-  }
-
   .gradient-text {
-    @apply bg-gradient-to-r from-brand-400 to-accent-400 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-violet-600 via-purple-600 to-indigo-600 bg-clip-text text-transparent;
   }
 
-  .glass-card {
-    @apply bg-white/10 backdrop-blur-lg border border-white/20 rounded-2xl;
+  .premium-card {
+    @apply bg-white border border-slate-200/60 rounded-2xl;
+    box-shadow:
+      0 1px 2px rgba(15, 23, 42, 0.04),
+      0 8px 24px rgba(124, 58, 237, 0.06),
+      0 24px 64px rgba(124, 58, 237, 0.06);
   }
 
-  .card-shadow {
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15), 0 8px 20px rgba(0, 0, 0, 0.1);
+  .soft-card {
+    @apply bg-white/80 backdrop-blur-sm border border-slate-200/50 rounded-xl;
+    box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04), 0 4px 12px rgba(124, 58, 237, 0.04);
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-semibold text-white
+      bg-gradient-to-r from-violet-600 to-purple-600
+      hover:from-violet-700 hover:to-purple-700
+      transition-all duration-200;
+    box-shadow: 0 4px 14px rgba(124, 58, 237, 0.35), 0 1px 2px rgba(124, 58, 237, 0.2);
+  }
+
+  .btn-primary:hover {
+    box-shadow: 0 8px 24px rgba(124, 58, 237, 0.45), 0 2px 4px rgba(124, 58, 237, 0.25);
+  }
+
+  .btn-secondary {
+    @apply inline-flex items-center justify-center gap-2 px-6 py-3 rounded-xl font-medium
+      bg-white border border-slate-200 text-slate-700
+      hover:bg-slate-50 hover:border-slate-300
+      transition-all duration-200;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-medium
+      bg-violet-50 text-violet-700 border border-violet-200/60;
   }
 }
 
 /* Custom scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -49,12 +87,18 @@ body {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: rgba(139, 92, 246, 0.3);
-  border-radius: 3px;
+  background: rgba(139, 92, 246, 0.25);
+  border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(139, 92, 246, 0.5);
+  background: rgba(139, 92, 246, 0.45);
+}
+
+/* Selection */
+::selection {
+  background: rgba(139, 92, 246, 0.2);
+  color: #4c1d95;
 }
 
 /* Print styles for PDF */

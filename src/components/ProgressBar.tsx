@@ -13,16 +13,16 @@ export default function ProgressBar({ current, total }: ProgressBarProps) {
   return (
     <div className="w-full max-w-md mx-auto">
       <div className="flex justify-between items-center mb-2">
-        <span className="text-sm text-white/60">
-          {current + 1} / {total}
+        <span className="text-sm font-medium text-slate-600">
+          Question <span className="text-slate-900 font-semibold">{current + 1}</span> of {total}
         </span>
-        <span className="text-sm text-white/60">
+        <span className="text-sm font-semibold text-violet-600">
           {Math.round(progress)}%
         </span>
       </div>
-      <div className="h-2 bg-white/10 rounded-full overflow-hidden">
+      <div className="h-2 bg-slate-200/70 rounded-full overflow-hidden">
         <motion.div
-          className="h-full bg-gradient-to-r from-brand-400 to-accent-400 rounded-full"
+          className="h-full bg-gradient-to-r from-violet-500 to-purple-600 rounded-full"
           initial={{ width: 0 }}
           animate={{ width: `${progress}%` }}
           transition={{ duration: 0.5, ease: "easeOut" }}

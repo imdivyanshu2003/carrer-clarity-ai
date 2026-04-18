@@ -196,44 +196,47 @@ export default function PaymentPage() {
         className="max-w-md w-full"
       >
         {/* Report Ready Card */}
-        <div className="glass-card p-8 text-center mb-4">
+        <div className="premium-card p-8 text-center mb-4">
           <motion.div
-            animate={{ scale: [1, 1.1, 1] }}
+            animate={{ scale: [1, 1.08, 1] }}
             transition={{ duration: 2, repeat: Infinity }}
-            className="w-16 h-16 mx-auto mb-6 rounded-full bg-green-500/20 flex items-center justify-center"
+            className="w-16 h-16 mx-auto mb-5 rounded-2xl bg-gradient-to-br from-emerald-400 to-green-500 flex items-center justify-center shadow-lg shadow-green-200"
           >
-            <CheckCircle size={32} className="text-green-400" />
+            <CheckCircle size={30} className="text-white" />
           </motion.div>
 
-          <h1 className="text-2xl font-bold mb-2">{t.ready}</h1>
-          <p className="text-sm text-white/50 mb-8">{t.subtitle}</p>
+          <h1 className="text-2xl font-bold text-slate-900 mb-2">{t.ready}</h1>
+          <p className="text-sm text-slate-500 mb-7 leading-relaxed">{t.subtitle}</p>
 
           {/* What's included */}
-          <div className="text-left space-y-3 mb-8">
-            <p className="text-xs text-white/40 uppercase tracking-wider mb-3">
+          <div className="text-left space-y-2.5 mb-7 p-4 rounded-xl bg-slate-50 border border-slate-100">
+            <p className="text-[10px] text-slate-500 uppercase tracking-wider font-bold mb-3">
               {t.includes}
             </p>
             {[
-              { icon: Sparkles, label: t.personality },
-              { icon: FileText, label: t.careers },
-              { icon: Ban, label: t.avoid },
-              { icon: Zap, label: t.action },
-            ].map((item, i) => (
-              <div key={i} className="flex items-center gap-3">
-                <div className="w-8 h-8 rounded-lg bg-brand-500/20 flex items-center justify-center shrink-0">
-                  <item.icon size={16} className="text-brand-300" />
+              { icon: Sparkles, label: t.personality, color: "text-violet-600 bg-violet-100" },
+              { icon: FileText, label: t.careers, color: "text-indigo-600 bg-indigo-100" },
+              { icon: Ban, label: t.avoid, color: "text-rose-600 bg-rose-100" },
+              { icon: Zap, label: t.action, color: "text-amber-600 bg-amber-100" },
+            ].map((item, i) => {
+              const [textColor, bgColor] = item.color.split(" ");
+              return (
+                <div key={i} className="flex items-center gap-3">
+                  <div className={`w-8 h-8 rounded-lg ${bgColor} flex items-center justify-center shrink-0`}>
+                    <item.icon size={15} className={textColor} />
+                  </div>
+                  <span className="text-sm text-slate-800 font-medium">{item.label}</span>
+                  <Lock size={12} className="text-slate-300 ml-auto" />
                 </div>
-                <span className="text-sm">{item.label}</span>
-                <Lock size={12} className="text-white/20 ml-auto" />
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           {/* Email Input (Required) */}
           <div className="text-left mb-6">
-            <label className="flex items-center gap-2 text-sm font-medium mb-2">
-              <Mail size={14} className="text-brand-300" />
-              {t.emailLabel} <span className="text-red-400">*</span>
+            <label className="flex items-center gap-2 text-sm font-semibold text-slate-800 mb-2">
+              <Mail size={14} className="text-violet-600" />
+              {t.emailLabel} <span className="text-rose-500">*</span>
             </label>
             <input
               type="email"
@@ -243,14 +246,14 @@ export default function PaymentPage() {
                 setEmailError("");
               }}
               placeholder={t.emailPlaceholder}
-              className="w-full px-4 py-3 rounded-lg bg-white/5 border border-white/10 
-                         text-white placeholder-white/30 focus:outline-none focus:border-brand-400 
-                         transition-colors text-sm"
+              className="w-full px-4 py-3 rounded-xl bg-white border border-slate-200
+                         text-slate-900 placeholder-slate-400 focus:outline-none focus:border-violet-400 focus:ring-2 focus:ring-violet-100 
+                         transition-all text-sm"
             />
             {emailError && (
-              <p className="text-xs text-red-400 mt-1">{emailError}</p>
+              <p className="text-xs text-rose-600 mt-1.5 font-medium">{emailError}</p>
             )}
-            <p className="text-xs text-white/30 mt-1.5">{t.emailHint}</p>
+            <p className="text-xs text-slate-500 mt-1.5">{t.emailHint}</p>
           </div>
 
           {/* Payment Button */}
@@ -259,14 +262,12 @@ export default function PaymentPage() {
             whileTap={{ scale: 0.98 }}
             onClick={handlePayment}
             disabled={isProcessing}
-            className="w-full py-4 rounded-xl bg-gradient-to-r from-brand-500 to-brand-600 
-                       hover:from-brand-600 hover:to-brand-700 transition-all font-semibold
-                       text-lg disabled:opacity-50 disabled:cursor-not-allowed mb-3"
+            className="btn-primary w-full py-4 text-base disabled:opacity-50 disabled:cursor-not-allowed mb-3"
           >
             {isProcessing ? (
               <span className="flex items-center justify-center gap-2">
-                <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                {language === "hi" ? "Processing..." : "Processing..."}
+                <div className="w-5 h-5 border-2 border-white/40 border-t-white rounded-full animate-spin" />
+                Processing...
               </span>
             ) : (
               <span>
@@ -275,19 +276,19 @@ export default function PaymentPage() {
             )}
           </motion.button>
 
-          <div className="flex items-center justify-center gap-2 text-xs text-white/30">
+          <div className="flex items-center justify-center gap-2 text-xs text-slate-500">
             <Shield size={12} />
             <span>{t.secure}</span>
           </div>
         </div>
 
         {/* Disclaimer */}
-        <p className="text-center text-xs text-white/25 mb-4">{t.disclaimer}</p>
+        <p className="text-center text-xs text-slate-500 mb-3 px-4 leading-relaxed">{t.disclaimer}</p>
 
         {/* Demo button for testing */}
         <button
           onClick={handleDemoAccess}
-          className="w-full py-2 text-xs text-white/20 hover:text-white/40 transition-colors"
+          className="w-full py-2 text-xs text-slate-400 hover:text-slate-600 transition-colors"
         >
           {t.demo}
         </button>

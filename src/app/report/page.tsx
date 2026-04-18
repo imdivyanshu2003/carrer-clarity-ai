@@ -164,27 +164,27 @@ export default function ReportPage() {
   return (
     <main className="min-h-screen px-4 py-8 pb-32">
       {/* Action buttons - sticky top */}
-      <div className="sticky top-0 z-40 bg-gradient-to-b from-brand-700/90 to-transparent backdrop-blur-sm pb-4 no-print">
-        <div className="max-w-2xl mx-auto flex flex-col gap-2">
+      <div className="sticky top-0 z-40 bg-gradient-to-b from-slate-50/95 via-slate-50/80 to-transparent backdrop-blur-md pb-4 no-print">
+        <div className="max-w-2xl mx-auto flex flex-col gap-2 pt-2">
           {/* Email status banner */}
           {userEmail && (
-            <div className={`flex items-center justify-center gap-2 py-2 rounded-lg text-xs ${
-              emailSent ? "bg-green-500/10 text-green-300" : emailSending ? "bg-brand-500/10 text-brand-300" : "bg-white/5 text-white/40"
+            <div className={`flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-medium border ${
+              emailSent ? "bg-emerald-50 text-emerald-700 border-emerald-200" : emailSending ? "bg-violet-50 text-violet-700 border-violet-200" : "bg-slate-50 text-slate-600 border-slate-200"
             }`}>
               {emailSending ? (
                 <>
-                  <div className="w-3 h-3 border-2 border-brand-300/30 border-t-brand-300 rounded-full animate-spin" />
+                  <div className="w-3 h-3 border-2 border-violet-300 border-t-violet-600 rounded-full animate-spin" />
                   {language === "hi" ? `${userEmail} पर report भेज रहे हैं...` : `Sending report to ${userEmail}...`}
                 </>
               ) : emailSent ? (
                 <>
-                  <CheckCircle size={12} />
+                  <CheckCircle size={13} />
                   {language === "hi" ? `Report ${userEmail} पर भेज दी गई!` : `Report sent to ${userEmail}!`}
                 </>
               ) : (
                 <>
-                  <Mail size={12} />
-                  <button onClick={sendReportEmail} className="underline hover:text-white/60">
+                  <Mail size={13} />
+                  <button onClick={sendReportEmail} className="underline hover:text-violet-700">
                     {language === "hi" ? `${userEmail} पर report भेजें` : `Send report to ${userEmail}`}
                   </button>
                 </>
@@ -197,8 +197,7 @@ export default function ReportPage() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={handleDownloadPDF}
-              className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-white/10 
-                         hover:bg-white/20 transition-all text-sm font-medium border border-white/10"
+              className="btn-primary flex-1 !py-3 !text-sm"
             >
               <Download size={16} />
               {t.download}
@@ -207,8 +206,7 @@ export default function ReportPage() {
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               onClick={handleShareReport}
-              className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-white/10 
-                         hover:bg-white/20 transition-all text-sm font-medium border border-white/10"
+              className="btn-secondary flex-1 !py-3 !text-sm"
             >
               <Share2 size={16} />
               {t.share}
@@ -218,18 +216,18 @@ export default function ReportPage() {
       </div>
 
       {/* Report Content */}
-      <div ref={reportRef} className="max-w-2xl mx-auto space-y-6">
+      <div ref={reportRef} className="max-w-2xl mx-auto space-y-5">
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           className="text-center py-6"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-500/20 border border-brand-500/30 mb-4">
-            <Sparkles size={14} className="text-brand-300" />
-            <span className="text-xs text-brand-200">Career Clarity AI</span>
+          <div className="chip mb-4">
+            <Sparkles size={14} className="text-violet-600" />
+            <span>Career Clarity AI</span>
           </div>
-          <h1 className="text-2xl md:text-3xl font-bold">{t.title}</h1>
+          <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900">{t.title}</h1>
         </motion.div>
 
         {/* Personality Summary */}
@@ -237,30 +235,31 @@ export default function ReportPage() {
           icon={Brain}
           title={t.personality}
           delay={0.1}
+          accent="violet"
         >
-          <p className="text-white/70 leading-relaxed">
+          <p className="text-slate-700 leading-relaxed">
             {report.personalitySummary}
           </p>
         </ReportSection>
 
         {/* Strengths & Weaknesses */}
-        <div className="grid md:grid-cols-2 gap-4">
-          <ReportSection icon={TrendingUp} title={t.strengths} delay={0.2}>
-            <ul className="space-y-2">
+        <div className="grid md:grid-cols-2 gap-5">
+          <ReportSection icon={TrendingUp} title={t.strengths} delay={0.2} accent="emerald">
+            <ul className="space-y-2.5">
               {report.strengths.map((s, i) => (
-                <li key={i} className="flex items-start gap-2 text-sm text-white/70">
-                  <span className="text-green-400 mt-0.5 shrink-0">+</span>
+                <li key={i} className="flex items-start gap-2.5 text-sm text-slate-700 leading-relaxed">
+                  <span className="w-5 h-5 rounded-full bg-emerald-100 flex items-center justify-center text-emerald-700 text-xs font-bold shrink-0 mt-0.5">+</span>
                   <span>{s}</span>
                 </li>
               ))}
             </ul>
           </ReportSection>
 
-          <ReportSection icon={AlertTriangle} title={t.weaknesses} delay={0.25}>
-            <ul className="space-y-2">
+          <ReportSection icon={AlertTriangle} title={t.weaknesses} delay={0.25} accent="amber">
+            <ul className="space-y-2.5">
               {report.weaknesses.map((w, i) => (
-                <li key={i} className="flex items-start gap-2 text-sm text-white/70">
-                  <span className="text-amber-400 mt-0.5 shrink-0">!</span>
+                <li key={i} className="flex items-start gap-2.5 text-sm text-slate-700 leading-relaxed">
+                  <span className="w-5 h-5 rounded-full bg-amber-100 flex items-center justify-center text-amber-700 text-xs font-bold shrink-0 mt-0.5">!</span>
                   <span>{w}</span>
                 </li>
               ))}
@@ -269,34 +268,34 @@ export default function ReportPage() {
         </div>
 
         {/* Thinking Style */}
-        <ReportSection icon={Brain} title={t.thinking} delay={0.3}>
-          <p className="text-white/70 leading-relaxed">
+        <ReportSection icon={Brain} title={t.thinking} delay={0.3} accent="indigo">
+          <p className="text-slate-700 leading-relaxed">
             {report.thinkingStyle}
           </p>
         </ReportSection>
 
         {/* Top 3 Careers */}
-        <ReportSection icon={Target} title={t.topCareers} delay={0.35}>
-          <div className="space-y-4">
+        <ReportSection icon={Target} title={t.topCareers} delay={0.35} accent="violet">
+          <div className="space-y-3">
             {report.topCareers.map((career, i) => (
               <div
                 key={i}
-                className="p-4 rounded-xl bg-white/5 border border-white/10"
+                className="p-4 rounded-xl bg-gradient-to-br from-violet-50 to-white border border-violet-100"
               >
-                <div className="flex items-center gap-3 mb-2">
-                  <span className="w-8 h-8 rounded-full bg-brand-500/30 flex items-center justify-center text-sm font-bold text-brand-300">
+                <div className="flex items-center gap-3 mb-3">
+                  <span className="w-9 h-9 rounded-lg bg-gradient-to-br from-violet-600 to-purple-600 flex items-center justify-center text-sm font-bold text-white shadow-md shadow-violet-200">
                     {i + 1}
                   </span>
-                  <h4 className="font-semibold text-lg">{career.title}</h4>
+                  <h4 className="font-bold text-lg text-slate-900">{career.title}</h4>
                 </div>
-                <div className="ml-11 space-y-2">
+                <div className="ml-0 space-y-3">
                   <div>
-                    <p className="text-xs text-brand-300 mb-1">{t.whyFits}</p>
-                    <p className="text-sm text-white/60">{career.whyItFits}</p>
+                    <p className="text-[10px] font-bold text-violet-700 uppercase tracking-wider mb-1">{t.whyFits}</p>
+                    <p className="text-sm text-slate-700 leading-relaxed">{career.whyItFits}</p>
                   </div>
                   <div>
-                    <p className="text-xs text-accent-400 mb-1">{t.realWorld}</p>
-                    <p className="text-sm text-white/60">{career.realWorldContext}</p>
+                    <p className="text-[10px] font-bold text-indigo-600 uppercase tracking-wider mb-1">{t.realWorld}</p>
+                    <p className="text-sm text-slate-700 leading-relaxed">{career.realWorldContext}</p>
                   </div>
                 </div>
               </div>
@@ -305,16 +304,16 @@ export default function ReportPage() {
         </ReportSection>
 
         {/* Avoid Careers */}
-        <ReportSection icon={AlertTriangle} title={t.avoid} delay={0.4}>
-          <div className="space-y-3">
+        <ReportSection icon={AlertTriangle} title={t.avoid} delay={0.4} accent="rose">
+          <div className="space-y-2.5">
             {report.avoidCareers.map((career, i) => (
               <div
                 key={i}
-                className="p-4 rounded-xl bg-red-500/5 border border-red-500/10"
+                className="p-4 rounded-xl bg-rose-50 border border-rose-100 border-l-4 border-l-rose-400"
               >
-                <h4 className="font-medium text-red-300 mb-1">{career.title}</h4>
-                <p className="text-sm text-white/50">
-                  <span className="text-xs text-red-400">{t.reason}:</span>{" "}
+                <h4 className="font-bold text-rose-900 mb-1">{career.title}</h4>
+                <p className="text-sm text-slate-700 leading-relaxed">
+                  <span className="text-xs font-bold text-rose-600">{t.reason}:</span>{" "}
                   {career.reason}
                 </p>
               </div>
@@ -323,28 +322,28 @@ export default function ReportPage() {
         </ReportSection>
 
         {/* Action Plan */}
-        <ReportSection icon={Zap} title={t.actionPlan} delay={0.45}>
-          <div className="space-y-4">
-            <div className="grid gap-3">
-              <ActionItem label={t.skill} value={report.actionPlan.skillToLearn} color="brand" />
-              <ActionItem label={t.project} value={report.actionPlan.smallProject} color="accent" />
-              <ActionItem label={t.direction} value={report.actionPlan.direction} color="green" />
+        <ReportSection icon={Zap} title={t.actionPlan} delay={0.45} accent="amber">
+          <div className="space-y-5">
+            <div className="grid gap-2.5">
+              <ActionItem label={t.skill} value={report.actionPlan.skillToLearn} color="violet" />
+              <ActionItem label={t.project} value={report.actionPlan.smallProject} color="amber" />
+              <ActionItem label={t.direction} value={report.actionPlan.direction} color="emerald" />
             </div>
 
             <div>
-              <p className="text-xs text-white/40 uppercase tracking-wider mb-3">
+              <p className="text-[10px] text-slate-500 uppercase tracking-wider font-bold mb-3">
                 {t.weekly}
               </p>
               <div className="space-y-2">
                 {report.actionPlan.weeklyBreakdown.map((week, i) => (
                   <div
                     key={i}
-                    className="flex items-start gap-3 p-3 rounded-lg bg-white/5"
+                    className="flex items-start gap-3 p-3 rounded-xl bg-slate-50 border border-slate-100"
                   >
-                    <span className="w-6 h-6 rounded-full bg-brand-500/20 flex items-center justify-center text-xs text-brand-300 shrink-0">
+                    <span className="w-6 h-6 rounded-lg bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center text-xs font-bold text-white shrink-0">
                       {i + 1}
                     </span>
-                    <p className="text-sm text-white/60">{week}</p>
+                    <p className="text-sm text-slate-700 leading-relaxed">{week}</p>
                   </div>
                 ))}
               </div>
@@ -357,17 +356,17 @@ export default function ReportPage() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.5 }}
-          className="flex items-start gap-2 p-4 rounded-xl bg-white/5 border border-white/5"
+          className="flex items-start gap-3 p-4 rounded-xl bg-slate-50 border border-slate-100"
         >
-          <Shield size={16} className="text-white/30 mt-0.5 shrink-0" />
-          <p className="text-xs text-white/30 leading-relaxed">{t.disclaimer}</p>
+          <Shield size={16} className="text-slate-400 mt-0.5 shrink-0" />
+          <p className="text-xs text-slate-500 leading-relaxed">{t.disclaimer}</p>
         </motion.div>
 
         {/* Start Over */}
         <div className="text-center pt-4 no-print">
           <button
             onClick={handleStartOver}
-            className="inline-flex items-center gap-2 text-sm text-white/30 hover:text-white/50 transition-colors"
+            className="inline-flex items-center gap-2 text-sm text-slate-500 hover:text-violet-700 transition-colors"
           >
             <RotateCcw size={14} />
             {t.startOver}
@@ -378,27 +377,40 @@ export default function ReportPage() {
   );
 }
 
+const accentMap: Record<string, string> = {
+  violet: "bg-violet-100 text-violet-700",
+  emerald: "bg-emerald-100 text-emerald-700",
+  amber: "bg-amber-100 text-amber-700",
+  rose: "bg-rose-100 text-rose-700",
+  indigo: "bg-indigo-100 text-indigo-700",
+};
+
 function ReportSection({
   icon: Icon,
   title,
   delay = 0,
+  accent = "violet",
   children,
 }: {
   icon: any;
   title: string;
   delay?: number;
+  accent?: string;
   children: React.ReactNode;
 }) {
+  const accentClasses = accentMap[accent] || accentMap.violet;
   return (
     <motion.div
       initial={{ opacity: 0, y: 15 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay }}
-      className="glass-card p-6"
+      className="premium-card p-6"
     >
-      <div className="flex items-center gap-2 mb-4">
-        <Icon size={18} className="text-brand-300" />
-        <h3 className="font-semibold">{title}</h3>
+      <div className="flex items-center gap-3 mb-4">
+        <div className={`w-9 h-9 rounded-xl flex items-center justify-center ${accentClasses}`}>
+          <Icon size={18} />
+        </div>
+        <h3 className="font-bold text-slate-900 text-base">{title}</h3>
       </div>
       {children}
     </motion.div>
@@ -414,16 +426,17 @@ function ActionItem({
   value: string;
   color: string;
 }) {
-  const colorMap: Record<string, string> = {
-    brand: "bg-brand-500/10 border-brand-500/20 text-brand-300",
-    accent: "bg-accent-500/10 border-accent-500/20 text-accent-300",
-    green: "bg-green-500/10 border-green-500/20 text-green-300",
+  const colorMap: Record<string, { bg: string; label: string; border: string }> = {
+    violet: { bg: "bg-violet-50", label: "text-violet-700", border: "border-violet-100" },
+    amber: { bg: "bg-amber-50", label: "text-amber-700", border: "border-amber-100" },
+    emerald: { bg: "bg-emerald-50", label: "text-emerald-700", border: "border-emerald-100" },
   };
+  const c = colorMap[color] || colorMap.violet;
 
   return (
-    <div className={`p-3 rounded-xl border ${colorMap[color] || colorMap.brand}`}>
-      <p className="text-xs opacity-60 mb-1">{label}</p>
-      <p className="text-sm text-white/70">{value}</p>
+    <div className={`p-3 rounded-xl border ${c.bg} ${c.border}`}>
+      <p className={`text-[10px] font-bold uppercase tracking-wider mb-1 ${c.label}`}>{label}</p>
+      <p className="text-sm text-slate-800 leading-relaxed">{value}</p>
     </div>
   );
 }

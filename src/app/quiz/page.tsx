@@ -94,16 +94,16 @@ export default function QuizPage() {
       <div className="max-w-lg mx-auto w-full mb-8">
         <div className="flex items-center gap-4 mb-6">
           <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
             onClick={handleBack}
-            className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center
-                       hover:bg-white/20 transition-colors"
+            className="w-10 h-10 rounded-full bg-white border border-slate-200 flex items-center justify-center
+                       hover:border-violet-300 hover:shadow-md hover:shadow-violet-100/50 text-slate-600 hover:text-violet-700 transition-all"
           >
             <ArrowLeft size={18} />
           </motion.button>
-          <span className="text-sm text-white/50">
-            {language === "hi" ? "Career Clarity AI" : "Career Clarity AI"}
+          <span className="text-sm font-semibold text-slate-700">
+            Career Clarity <span className="gradient-text">AI</span>
           </span>
         </div>
         <ProgressBar current={currentQuestion} total={questions.length} />
@@ -111,12 +111,14 @@ export default function QuizPage() {
 
       {/* Question */}
       <div className="flex-1 flex items-center justify-center pb-20">
-        <QuestionCard
-          question={questions[currentQuestion]}
-          language={language}
-          onAnswer={handleAnswer}
-          questionIndex={currentQuestion}
-        />
+        <div className="premium-card p-6 md:p-8 w-full max-w-lg">
+          <QuestionCard
+            question={questions[currentQuestion]}
+            language={language}
+            onAnswer={handleAnswer}
+            questionIndex={currentQuestion}
+          />
+        </div>
       </div>
     </main>
   );

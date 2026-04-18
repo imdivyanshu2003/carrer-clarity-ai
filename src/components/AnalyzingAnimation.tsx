@@ -28,7 +28,7 @@ export default function AnalyzingAnimation({ language }: AnalyzingAnimationProps
     <div className="flex flex-col items-center justify-center min-h-[60vh] gap-8">
       <motion.div
         animate={{
-          scale: [1, 1.2, 1],
+          scale: [1, 1.15, 1],
           rotate: [0, 5, -5, 0],
         }}
         transition={{
@@ -36,13 +36,13 @@ export default function AnalyzingAnimation({ language }: AnalyzingAnimationProps
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="w-24 h-24 rounded-full bg-brand-500/20 flex items-center justify-center"
+        className="w-24 h-24 rounded-3xl bg-gradient-to-br from-violet-500 to-purple-600 flex items-center justify-center shadow-xl shadow-violet-300/40"
       >
-        <Brain size={48} className="text-brand-300" />
+        <Brain size={44} className="text-white" />
       </motion.div>
 
       <div className="text-center space-y-4">
-        <h2 className="text-2xl font-bold">
+        <h2 className="text-2xl md:text-3xl font-bold text-slate-900">
           {language === "hi"
             ? "AI आपकी report तैयार कर रहा है..."
             : "AI is preparing your report..."}
@@ -55,7 +55,7 @@ export default function AnalyzingAnimation({ language }: AnalyzingAnimationProps
               initial={{ opacity: 0, x: -10 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: i * 1.5, duration: 0.5 }}
-              className="text-sm text-white/50"
+              className="text-sm text-slate-500"
             >
               {msg}
             </motion.p>
@@ -67,13 +67,13 @@ export default function AnalyzingAnimation({ language }: AnalyzingAnimationProps
         {[0, 1, 2].map((i) => (
           <motion.div
             key={i}
-            animate={{ scale: [1, 1.3, 1] }}
+            animate={{ scale: [1, 1.4, 1], opacity: [0.5, 1, 0.5] }}
             transition={{
-              duration: 0.6,
+              duration: 0.8,
               repeat: Infinity,
               delay: i * 0.2,
             }}
-            className="w-3 h-3 rounded-full bg-brand-400"
+            className="w-2.5 h-2.5 rounded-full bg-violet-500"
           />
         ))}
       </div>
