@@ -8,7 +8,7 @@ import { useApp } from "@/context/AppContext";
 
 declare global {
   interface Window {
-    Razorpay: any;
+    Cashfree: any;
   }
 }
 
@@ -32,13 +32,15 @@ export default function PaymentPage() {
   }, [language, report, isPaid, router]);
 
   useEffect(() => {
-    // Load Razorpay script
+    // Load Cashfree SDK
     const script = document.createElement("script");
-    script.src = "https://checkout.razorpay.com/v1/checkout.js";
+    script.src = "https://sdk.cashfree.com/js/v3/cashfree.js";
     script.async = true;
     document.body.appendChild(script);
     return () => {
-      document.body.removeChild(script);
+      if (document.body.contains(script)) {
+        document.body.removeChild(script);
+      }
     };
   }, []);
 
@@ -93,67 +95,74 @@ export default function PaymentPage() {
     setIsProcessing(true);
 
     try {
-      // Create order
+      const cleanedPhone = phoneInput
+        ? phoneInput.replace(/[\s\-()]/g, "").replace(/^\+91/, "")
+        : "";
+
+      // Create Cashfree order
       const orderRes = await fetch("/api/payment/create-order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ amount: 49 }),
+        body: JSON.stringify({
+          amount: 49,
+          email: emailInput.trim(),
+          phone: cleanedPhone || undefined,
+        }),
       });
 
       if (!orderRes.ok) throw new Error("Order creation failed");
 
       const orderData = await orderRes.json();
 
-      const options = {
-        key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
-        amount: orderData.amount,
-        currency: "INR",
-        name: "Career Clarity AI",
-        description: language === "hi" 
-          ? "आपकी Career Clarity Report" 
-          : "Your Career Clarity Report",
-        order_id: orderData.orderId,
-        handler: async function (response: any) {
-          // Verify payment
-          const verifyRes = await fetch("/api/payment/verify", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              orderId: response.razorpay_order_id,
-              paymentId: response.razorpay_payment_id,
-              signature: response.razorpay_signature,
-            }),
-          });
+      if (!window.Cashfree) {
+        throw new Error("Cashfree SDK not loaded");
+      }
 
-          if (verifyRes.ok) {
-            setIsPaid(true);
-            router.push("/report");
-          } else {
-            alert(
-              language === "hi"
-                ? "Payment verification failed। कृपया दोबारा try करें।"
-                : "Payment verification failed. Please try again."
-            );
-          }
-          setIsProcessing(false);
-        },
-        prefill: {},
-        theme: {
-          color: "#7c3aed",
-        },
-        modal: {
-          ondismiss: function () {
-            setIsProcessing(false);
-          },
-        },
+      const mode =
+        process.env.NEXT_PUBLIC_CASHFREE_MODE === "production"
+          ? "production"
+          : "sandbox";
+
+      const cashfree = window.Cashfree({ mode });
+
+      const checkoutOptions = {
+        paymentSessionId: orderData.paymentSessionId,
+        redirectTarget: "_modal",
       };
 
-      if (window.Razorpay) {
-        const rzp = new window.Razorpay(options);
-        rzp.open();
-      } else {
-        throw new Error("Razorpay not loaded");
+      const result = await cashfree.checkout(checkoutOptions);
+
+      if (result.error) {
+        console.error("Cashfree checkout error:", result.error);
+        setIsProcessing(false);
+        alert(
+          language === "hi"
+            ? "Payment cancel हुआ या fail हुआ। कृपया दोबारा try करें।"
+            : "Payment was cancelled or failed. Please try again."
+        );
+        return;
       }
+
+      // Verify payment on server
+      const verifyRes = await fetch("/api/payment/verify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ orderId: orderData.orderId }),
+      });
+
+      const verifyData = await verifyRes.json();
+
+      if (verifyRes.ok && verifyData.verified) {
+        setIsPaid(true);
+        router.push("/report");
+      } else {
+        alert(
+          language === "hi"
+            ? "Payment verification failed। कृपया दोबारा try करें।"
+            : "Payment verification failed. Please try again."
+        );
+      }
+      setIsProcessing(false);
     } catch (error) {
       console.error("Payment error:", error);
       setIsProcessing(false);
@@ -183,7 +192,7 @@ export default function PaymentPage() {
     action: "30-Day Action Plan",
     unlock: "Report Unlock करें",
     price: "₹49 में",
-    secure: "Secure payment via Razorpay",
+    secure: "Secure payment via Cashfree",
     disclaimer: "AI-based suggestions — professional counseling की जगह नहीं",
     demo: "Demo Access (Testing)",
     emailLabel: "आपकी Email ID",
@@ -202,7 +211,7 @@ export default function PaymentPage() {
     action: "30-Day Action Plan",
     unlock: "Unlock Your Report",
     price: "for ₹49",
-    secure: "Secure payment via Razorpay",
+    secure: "Secure payment via Cashfree",
     disclaimer: "AI-based suggestions — not a substitute for professional counseling",
     demo: "Demo Access (Testing)",
     emailLabel: "Your Email ID",

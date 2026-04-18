@@ -1,41 +1,59 @@
 import { NextRequest, NextResponse } from "next/server";
-import crypto from "crypto";
 
 export async function POST(request: NextRequest) {
   try {
-    const { orderId, paymentId, signature } = await request.json();
+    const { orderId } = await request.json();
 
     // Demo mode check
     if (orderId?.startsWith("order_demo_")) {
       return NextResponse.json({ verified: true, demo: true });
     }
 
-    if (!process.env.RAZORPAY_KEY_SECRET) {
+    const appId = process.env.CASHFREE_APP_ID;
+    const secretKey = process.env.CASHFREE_SECRET_KEY;
+    const mode = process.env.CASHFREE_MODE || "sandbox";
+
+    if (!appId || !secretKey) {
       return NextResponse.json(
-        { error: "Razorpay not configured" },
+        { error: "Cashfree not configured" },
         { status: 500 }
       );
     }
 
-    // Verify signature
-    const body = orderId + "|" + paymentId;
-    const expectedSignature = crypto
-      .createHmac("sha256", process.env.RAZORPAY_KEY_SECRET)
-      .update(body.toString())
-      .digest("hex");
+    const baseUrl =
+      mode === "production"
+        ? `https://api.cashfree.com/pg/orders/${orderId}`
+        : `https://sandbox.cashfree.com/pg/orders/${orderId}`;
 
-    const isValid = expectedSignature === signature;
+    const response = await fetch(baseUrl, {
+      method: "GET",
+      headers: {
+        "x-api-version": "2023-08-01",
+        "x-client-id": appId,
+        "x-client-secret": secretKey,
+      },
+    });
 
-    if (isValid) {
-      return NextResponse.json({ verified: true });
-    } else {
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.error("Cashfree verify error:", data);
       return NextResponse.json(
-        { error: "Invalid signature", verified: false },
+        { error: data.message || "Verification failed", verified: false },
         { status: 400 }
       );
     }
-  } catch (error) {
-    console.error("Verification error:", error);
+
+    // order_status: ACTIVE | PAID | EXPIRED | TERMINATED
+    const isPaid = data.order_status === "PAID";
+
+    return NextResponse.json({
+      verified: isPaid,
+      status: data.order_status,
+      orderId: data.order_id,
+    });
+  } catch (error: any) {
+    console.error("Verification error:", error?.message || error);
     return NextResponse.json(
       { error: "Verification failed" },
       { status: 500 }
