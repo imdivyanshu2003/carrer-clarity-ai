@@ -97,121 +97,132 @@ function buildEmailHTML(report: any, isHindi: boolean): string {
           "Disclaimer: These are AI-based suggestions. They are not a substitute for professional career counseling.",
       };
 
-  return `
-<!DOCTYPE html>
+  // Email-safe inline styles (email clients strip external/class-based CSS)
+  const s = {
+    body: "margin:0;padding:0;background-color:#f3f4f6;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Arial,sans-serif;color:#1f2937;",
+    wrapper: "width:100%;background-color:#f3f4f6;padding:24px 12px;",
+    container: "max-width:600px;margin:0 auto;background-color:#ffffff;border-radius:12px;overflow:hidden;border:1px solid #e5e7eb;",
+    header: "background:linear-gradient(135deg,#7c3aed 0%,#a78bfa 100%);padding:32px 24px;text-align:center;color:#ffffff;",
+    headerTitle: "margin:0;font-size:24px;font-weight:700;color:#ffffff;",
+    headerSubtitle: "margin:8px 0 0 0;font-size:13px;color:#ede9fe;",
+    content: "padding:24px;",
+    section: "margin-bottom:24px;",
+    sectionTitle: "color:#6d28d9;font-size:16px;font-weight:700;margin:0 0 12px 0;padding-bottom:8px;border-bottom:2px solid #ede9fe;",
+    paragraph: "color:#374151;font-size:14px;line-height:1.6;margin:0;",
+    listItem: "color:#374151;font-size:14px;padding:6px 0;line-height:1.5;",
+    careerCard: "background-color:#f9fafb;border:1px solid #e5e7eb;border-left:4px solid #7c3aed;border-radius:8px;padding:16px;margin-bottom:12px;",
+    careerTitle: "color:#111827;font-size:16px;font-weight:700;margin:0 0 10px 0;",
+    careerLabel: "color:#7c3aed;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;font-weight:600;margin-top:8px;",
+    careerText: "color:#4b5563;font-size:13px;line-height:1.5;margin:4px 0 0 0;",
+    avoidCard: "background-color:#fef2f2;border:1px solid #fecaca;border-left:4px solid #ef4444;border-radius:8px;padding:14px;margin-bottom:10px;",
+    avoidTitle: "color:#b91c1c;font-size:15px;font-weight:700;margin:0 0 4px 0;",
+    avoidReason: "color:#4b5563;font-size:13px;line-height:1.5;margin:0;",
+    actionItem: "background-color:#faf5ff;border:1px solid #e9d5ff;border-radius:8px;padding:12px;margin-bottom:8px;",
+    actionLabel: "color:#7c3aed;font-size:11px;text-transform:uppercase;letter-spacing:0.5px;font-weight:600;margin:0 0 4px 0;",
+    actionValue: "color:#1f2937;font-size:14px;line-height:1.5;margin:0;",
+    weekItem: "background-color:#f9fafb;border-left:3px solid #a78bfa;border-radius:4px;padding:10px 12px;margin-bottom:6px;color:#374151;font-size:13px;line-height:1.5;",
+    disclaimer: "text-align:center;color:#6b7280;font-size:11px;padding:20px 24px;border-top:1px solid #e5e7eb;margin-top:8px;background-color:#f9fafb;",
+    footer: "text-align:center;color:#9ca3af;font-size:11px;padding:12px;background-color:#f9fafb;",
+  };
+
+  return `<!DOCTYPE html>
 <html>
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <style>
-    body { font-family: 'Segoe UI', Arial, sans-serif; background: #0f0a1e; color: #e2e8f0; margin: 0; padding: 20px; }
-    .container { max-width: 600px; margin: 0 auto; }
-    .header { text-align: center; padding: 30px 0; }
-    .header h1 { color: #a78bfa; font-size: 24px; margin: 0; }
-    .header p { color: #64748b; font-size: 12px; margin-top: 8px; }
-    .section { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; padding: 20px; margin-bottom: 16px; }
-    .section h2 { color: #c4b5fd; font-size: 16px; margin: 0 0 12px 0; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px; }
-    .section p { color: #94a3b8; font-size: 14px; line-height: 1.6; margin: 0; }
-    .list-item { color: #94a3b8; font-size: 14px; padding: 4px 0; }
-    .career-card { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 16px; margin-bottom: 12px; }
-    .career-title { color: #e2e8f0; font-size: 16px; font-weight: 600; margin-bottom: 8px; }
-    .career-label { color: #a78bfa; font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; }
-    .career-text { color: #94a3b8; font-size: 13px; margin-top: 4px; }
-    .avoid-card { background: rgba(239,68,68,0.05); border: 1px solid rgba(239,68,68,0.15); border-radius: 8px; padding: 16px; margin-bottom: 12px; }
-    .avoid-title { color: #fca5a5; font-size: 15px; font-weight: 600; }
-    .avoid-reason { color: #94a3b8; font-size: 13px; margin-top: 4px; }
-    .action-item { background: rgba(139,92,246,0.08); border: 1px solid rgba(139,92,246,0.2); border-radius: 8px; padding: 12px; margin-bottom: 8px; }
-    .action-label { color: #c4b5fd; font-size: 11px; text-transform: uppercase; }
-    .action-value { color: #e2e8f0; font-size: 13px; margin-top: 4px; }
-    .week-item { background: rgba(255,255,255,0.03); border-radius: 6px; padding: 10px; margin-bottom: 6px; color: #94a3b8; font-size: 13px; }
-    .disclaimer { text-align: center; color: #475569; font-size: 11px; padding: 20px 0; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 20px; }
-    .footer { text-align: center; color: #334155; font-size: 11px; padding: 10px 0; }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>${t.title}</title>
 </head>
-<body>
-  <div class="container">
-    <div class="header">
-      <h1>${t.title}</h1>
-      <p>Career Clarity AI</p>
-    </div>
+<body style="${s.body}">
+  <div style="${s.wrapper}">
+    <div style="${s.container}">
+      <div style="${s.header}">
+        <h1 style="${s.headerTitle}">${t.title}</h1>
+        <p style="${s.headerSubtitle}">Career Clarity AI &mdash; AI-Powered Career Guidance</p>
+      </div>
 
-    <div class="section">
-      <h2>${t.personality}</h2>
-      <p>${report.personalitySummary}</p>
-    </div>
+      <div style="${s.content}">
 
-    <div class="section">
-      <h2>${t.strengths}</h2>
-      ${report.strengths.map((s: string) => `<div class="list-item">&#10003; ${s}</div>`).join("")}
-    </div>
-
-    <div class="section">
-      <h2>${t.weaknesses}</h2>
-      ${report.weaknesses.map((w: string) => `<div class="list-item">&#9888; ${w}</div>`).join("")}
-    </div>
-
-    <div class="section">
-      <h2>${t.thinking}</h2>
-      <p>${report.thinkingStyle}</p>
-    </div>
-
-    <div class="section">
-      <h2>${t.topCareers}</h2>
-      ${report.topCareers
-        .map(
-          (c: any, i: number) => `
-        <div class="career-card">
-          <div class="career-title">${i + 1}. ${c.title}</div>
-          <div class="career-label">${t.whyFits}</div>
-          <div class="career-text">${c.whyItFits}</div>
-          <div class="career-label" style="margin-top:8px">${t.realWorld}</div>
-          <div class="career-text">${c.realWorldContext}</div>
+        <div style="${s.section}">
+          <h2 style="${s.sectionTitle}">${t.personality}</h2>
+          <p style="${s.paragraph}">${report.personalitySummary}</p>
         </div>
-      `
-        )
-        .join("")}
-    </div>
 
-    <div class="section">
-      <h2>${t.avoid}</h2>
-      ${report.avoidCareers
-        .map(
-          (c: any) => `
-        <div class="avoid-card">
-          <div class="avoid-title">${c.title}</div>
-          <div class="avoid-reason">${t.reason}: ${c.reason}</div>
+        <div style="${s.section}">
+          <h2 style="${s.sectionTitle}">${t.strengths}</h2>
+          ${report.strengths
+            .map((st: string) => `<div style="${s.listItem}"><span style="color:#10b981;font-weight:700;">&#10003;</span> ${st}</div>`)
+            .join("")}
         </div>
-      `
-        )
-        .join("")}
-    </div>
 
-    <div class="section">
-      <h2>${t.actionPlan}</h2>
-      <div class="action-item">
-        <div class="action-label">${t.skill}</div>
-        <div class="action-value">${report.actionPlan.skillToLearn}</div>
-      </div>
-      <div class="action-item">
-        <div class="action-label">${t.project}</div>
-        <div class="action-value">${report.actionPlan.smallProject}</div>
-      </div>
-      <div class="action-item">
-        <div class="action-label">${t.direction}</div>
-        <div class="action-value">${report.actionPlan.direction}</div>
-      </div>
-      <div style="margin-top:12px">
-        <div class="action-label" style="margin-bottom:8px">${t.weekly}</div>
-        ${report.actionPlan.weeklyBreakdown
-          .map((w: string, i: number) => `<div class="week-item">${i + 1}. ${w}</div>`)
-          .join("")}
-      </div>
-    </div>
+        <div style="${s.section}">
+          <h2 style="${s.sectionTitle}">${t.weaknesses}</h2>
+          ${report.weaknesses
+            .map((w: string) => `<div style="${s.listItem}"><span style="color:#f59e0b;font-weight:700;">&#9888;</span> ${w}</div>`)
+            .join("")}
+        </div>
 
-    <div class="disclaimer">${t.disclaimer}</div>
-    <div class="footer">Career Clarity AI &copy; ${new Date().getFullYear()}</div>
+        <div style="${s.section}">
+          <h2 style="${s.sectionTitle}">${t.thinking}</h2>
+          <p style="${s.paragraph}">${report.thinkingStyle}</p>
+        </div>
+
+        <div style="${s.section}">
+          <h2 style="${s.sectionTitle}">${t.topCareers}</h2>
+          ${report.topCareers
+            .map(
+              (c: any, i: number) => `
+            <div style="${s.careerCard}">
+              <h3 style="${s.careerTitle}">${i + 1}. ${c.title}</h3>
+              <div style="${s.careerLabel}">${t.whyFits}</div>
+              <p style="${s.careerText}">${c.whyItFits}</p>
+              <div style="${s.careerLabel}">${t.realWorld}</div>
+              <p style="${s.careerText}">${c.realWorldContext}</p>
+            </div>`
+            )
+            .join("")}
+        </div>
+
+        <div style="${s.section}">
+          <h2 style="${s.sectionTitle}">${t.avoid}</h2>
+          ${report.avoidCareers
+            .map(
+              (c: any) => `
+            <div style="${s.avoidCard}">
+              <div style="${s.avoidTitle}">${c.title}</div>
+              <p style="${s.avoidReason}"><strong>${t.reason}:</strong> ${c.reason}</p>
+            </div>`
+            )
+            .join("")}
+        </div>
+
+        <div style="${s.section}">
+          <h2 style="${s.sectionTitle}">${t.actionPlan}</h2>
+          <div style="${s.actionItem}">
+            <div style="${s.actionLabel}">${t.skill}</div>
+            <p style="${s.actionValue}">${report.actionPlan.skillToLearn}</p>
+          </div>
+          <div style="${s.actionItem}">
+            <div style="${s.actionLabel}">${t.project}</div>
+            <p style="${s.actionValue}">${report.actionPlan.smallProject}</p>
+          </div>
+          <div style="${s.actionItem}">
+            <div style="${s.actionLabel}">${t.direction}</div>
+            <p style="${s.actionValue}">${report.actionPlan.direction}</p>
+          </div>
+          <div style="margin-top:16px;">
+            <div style="${s.actionLabel};margin-bottom:8px;">${t.weekly}</div>
+            ${report.actionPlan.weeklyBreakdown
+              .map((w: string, i: number) => `<div style="${s.weekItem}"><strong>${i + 1}.</strong> ${w}</div>`)
+              .join("")}
+          </div>
+        </div>
+
+      </div>
+
+      <div style="${s.disclaimer}">${t.disclaimer}</div>
+      <div style="${s.footer}">Career Clarity AI &copy; ${new Date().getFullYear()}</div>
+    </div>
   </div>
 </body>
-</html>
-  `;
+</html>`;
 }
