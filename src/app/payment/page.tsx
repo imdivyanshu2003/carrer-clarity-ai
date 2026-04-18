@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { Lock, CheckCircle, Sparkles, FileText, Ban, Zap, Shield, Phone, Mail } from "lucide-react";
+import { Lock, CheckCircle, Sparkles, FileText, Ban, Zap, Shield, Mail } from "lucide-react";
 import { useApp } from "@/context/AppContext";
 
 declare global {
@@ -14,12 +14,10 @@ declare global {
 
 export default function PaymentPage() {
   const router = useRouter();
-  const { language, report, isPaid, setIsPaid, whatsappNumber, setWhatsappNumber, userEmail, setUserEmail } = useApp();
+  const { language, report, isPaid, setIsPaid, userEmail, setUserEmail } = useApp();
   const [isProcessing, setIsProcessing] = useState(false);
   const [emailInput, setEmailInput] = useState(userEmail || "");
-  const [phoneInput, setPhoneInput] = useState(whatsappNumber || "");
   const [emailError, setEmailError] = useState("");
-  const [phoneError, setPhoneError] = useState("");
 
   useEffect(() => {
     if (!language || !report) {
@@ -50,43 +48,21 @@ export default function PaymentPage() {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
   };
 
-  const validatePhone = (num: string) => {
-    if (!num) return true; // Optional field
-    const cleaned = num.replace(/[\s\-()]/g, "");
-    return /^(\+91)?[6-9]\d{9}$/.test(cleaned);
-  };
-
   const validateInputs = () => {
-    let valid = true;
     if (!validateEmail(emailInput)) {
       setEmailError(
         language === "hi"
           ? "कृपया सही Email ID डालें"
           : "Please enter a valid email address"
       );
-      valid = false;
-    } else {
-      setEmailError("");
+      return false;
     }
-    if (phoneInput && !validatePhone(phoneInput)) {
-      setPhoneError(
-        language === "hi"
-          ? "कृपया सही WhatsApp number डालें (10 digits)"
-          : "Please enter a valid WhatsApp number (10 digits)"
-      );
-      valid = false;
-    } else {
-      setPhoneError("");
-    }
-    return valid;
+    setEmailError("");
+    return true;
   };
 
   const saveUserDetails = () => {
     setUserEmail(emailInput.trim());
-    if (phoneInput) {
-      const cleaned = phoneInput.replace(/[\s\-()]/g, "").replace(/^\+91/, "");
-      setWhatsappNumber(cleaned);
-    }
   };
 
   const handlePayment = async () => {
@@ -95,10 +71,6 @@ export default function PaymentPage() {
     setIsProcessing(true);
 
     try {
-      const cleanedPhone = phoneInput
-        ? phoneInput.replace(/[\s\-()]/g, "").replace(/^\+91/, "")
-        : "";
-
       // Create Cashfree order
       const orderRes = await fetch("/api/payment/create-order", {
         method: "POST",
@@ -106,7 +78,6 @@ export default function PaymentPage() {
         body: JSON.stringify({
           amount: 49,
           email: emailInput.trim(),
-          phone: cleanedPhone || undefined,
         }),
       });
 
@@ -198,9 +169,6 @@ export default function PaymentPage() {
     emailLabel: "आपकी Email ID",
     emailPlaceholder: "जैसे: name@gmail.com",
     emailHint: "Report इस email पर भेजी जाएगी",
-    whatsappLabel: "WhatsApp Number (optional)",
-    whatsappPlaceholder: "जैसे: 9876543210",
-    whatsappHint: "चाहें तो WhatsApp पर भी report पा सकते हैं",
   } : {
     ready: "Your Report is Ready!",
     subtitle: "AI has analyzed your personality and created a detailed career guidance report",
@@ -217,9 +185,6 @@ export default function PaymentPage() {
     emailLabel: "Your Email ID",
     emailPlaceholder: "e.g. name@gmail.com",
     emailHint: "Report will be delivered to this email",
-    whatsappLabel: "WhatsApp Number (optional)",
-    whatsappPlaceholder: "e.g. 9876543210",
-    whatsappHint: "Optionally get report on WhatsApp too",
   };
 
   return (
@@ -265,7 +230,7 @@ export default function PaymentPage() {
           </div>
 
           {/* Email Input (Required) */}
-          <div className="text-left mb-4">
+          <div className="text-left mb-6">
             <label className="flex items-center gap-2 text-sm font-medium mb-2">
               <Mail size={14} className="text-brand-300" />
               {t.emailLabel} <span className="text-red-400">*</span>
@@ -286,34 +251,6 @@ export default function PaymentPage() {
               <p className="text-xs text-red-400 mt-1">{emailError}</p>
             )}
             <p className="text-xs text-white/30 mt-1.5">{t.emailHint}</p>
-          </div>
-
-          {/* WhatsApp Number Input (Optional) */}
-          <div className="text-left mb-6">
-            <label className="flex items-center gap-2 text-sm font-medium mb-2">
-              <Phone size={14} className="text-green-400" />
-              {t.whatsappLabel}
-            </label>
-            <div className="flex items-center gap-2">
-              <span className="text-sm text-white/40 bg-white/5 border border-white/10 rounded-lg px-3 py-3">+91</span>
-              <input
-                type="tel"
-                value={phoneInput}
-                onChange={(e) => {
-                  setPhoneInput(e.target.value.replace(/[^0-9]/g, "").slice(0, 10));
-                  setPhoneError("");
-                }}
-                placeholder={t.whatsappPlaceholder}
-                className="flex-1 px-4 py-3 rounded-lg bg-white/5 border border-white/10 
-                           text-white placeholder-white/30 focus:outline-none focus:border-green-400 
-                           transition-colors text-sm"
-                maxLength={10}
-              />
-            </div>
-            {phoneError && (
-              <p className="text-xs text-red-400 mt-1">{phoneError}</p>
-            )}
-            <p className="text-xs text-white/30 mt-1.5">{t.whatsappHint}</p>
           </div>
 
           {/* Payment Button */}

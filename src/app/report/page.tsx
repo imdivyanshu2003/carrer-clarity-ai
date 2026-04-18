@@ -14,7 +14,6 @@ import {
   Target,
   ChevronRight,
   RotateCcw,
-  MessageCircle,
   Shield,
   Mail,
   CheckCircle,
@@ -24,7 +23,7 @@ import { CareerReport, Language } from "@/lib/types";
 
 export default function ReportPage() {
   const router = useRouter();
-  const { language, report, isPaid, whatsappNumber, userEmail, reset } = useApp();
+  const { language, report, isPaid, userEmail, reset } = useApp();
   const reportRef = useRef<HTMLDivElement>(null);
   const [emailSent, setEmailSent] = useState(false);
   const [emailSending, setEmailSending] = useState(false);
@@ -105,18 +104,6 @@ export default function ReportPage() {
     );
   };
 
-  const BUSINESS_WHATSAPP = process.env.NEXT_PUBLIC_BUSINESS_WHATSAPP || "917505483523";
-
-  // Send report TO the business number — user receives it back from business
-  const handleGetOnWhatsApp = () => {
-    const summary = buildReportSummary();
-    const userPhone = whatsappNumber ? ` (My number: +91${whatsappNumber})` : "";
-    const message = language === "hi"
-      ? `Hi, मैंने Career Clarity AI assessment complete किया है।${userPhone}\n\nयह रही मेरी report:\n\n${summary}`
-      : `Hi, I've completed my Career Clarity AI assessment.${userPhone}\n\nHere's my report:\n\n${summary}`;
-    const url = `https://wa.me/${BUSINESS_WHATSAPP}?text=${encodeURIComponent(message)}`;
-    window.open(url, "_blank");
-  };
 
   // Share report with friends/others
   const handleShareReport = () => {
@@ -148,7 +135,6 @@ export default function ReportPage() {
         direction: "Direction",
         weekly: "Weekly Breakdown",
         download: "PDF Download करें",
-        getOnWhatsApp: "WhatsApp पर Report पाएं",
         share: "दोस्तों को Share करें",
         startOver: "दोबारा शुरू करें",
         disclaimer: "Disclaimer: यह AI-based suggestions हैं। ये professional career counseling की जगह नहीं ले सकतीं। इन्हें एक starting point की तरह use करें।",
@@ -170,7 +156,6 @@ export default function ReportPage() {
         direction: "Direction",
         weekly: "Weekly Breakdown",
         download: "Download PDF",
-        getOnWhatsApp: "Get Report on WhatsApp",
         share: "Share with Friends",
         startOver: "Start Over",
         disclaimer: "Disclaimer: These are AI-based suggestions. They are not a substitute for professional career counseling. Use them as a starting point.",
@@ -218,29 +203,16 @@ export default function ReportPage() {
               <Download size={16} />
               {t.download}
             </motion.button>
-            {whatsappNumber ? (
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={handleGetOnWhatsApp}
-                className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-green-600 
-                           hover:bg-green-700 transition-all text-sm font-medium"
-              >
-                <MessageCircle size={16} />
-                {t.getOnWhatsApp}
-              </motion.button>
-            ) : (
-              <motion.button
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={handleShareReport}
-                className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-white/10 
-                           hover:bg-white/20 transition-all text-sm font-medium border border-white/10"
-              >
-                <Share2 size={16} />
-                {t.share}
-              </motion.button>
-            )}
+            <motion.button
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={handleShareReport}
+              className="flex-1 flex items-center justify-center gap-2 py-3 rounded-xl bg-white/10 
+                         hover:bg-white/20 transition-all text-sm font-medium border border-white/10"
+            >
+              <Share2 size={16} />
+              {t.share}
+            </motion.button>
           </div>
         </div>
       </div>
