@@ -9,14 +9,10 @@ export async function POST(request: NextRequest) {
     const mode = process.env.CASHFREE_MODE || "sandbox"; // "sandbox" | "production"
 
     if (!appId || !secretKey) {
-      // Demo mode — return a mock order
-      return NextResponse.json({
-        orderId: "order_demo_" + Date.now(),
-        paymentSessionId: "demo_session_" + Date.now(),
-        amount: amount || 49,
-        currency: "INR",
-        demo: true,
-      });
+      return NextResponse.json(
+        { error: "Payment service is not configured. Please try again later." },
+        { status: 503 }
+      );
     }
 
     const baseUrl =

@@ -4,11 +4,6 @@ export async function POST(request: NextRequest) {
   try {
     const { orderId } = await request.json();
 
-    // Demo mode check
-    if (orderId?.startsWith("order_demo_")) {
-      return NextResponse.json({ verified: true, demo: true });
-    }
-
     const appId = process.env.CASHFREE_APP_ID;
     const secretKey = process.env.CASHFREE_SECRET_KEY;
     const mode = process.env.CASHFREE_MODE || "sandbox";

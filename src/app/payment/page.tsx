@@ -145,14 +145,6 @@ export default function PaymentPage() {
     }
   };
 
-  // For demo/testing — skip payment
-  const handleDemoAccess = () => {
-    if (!validateInputs()) return;
-    saveUserDetails();
-    setIsPaid(true);
-    router.push("/report");
-  };
-
   const t = language === "hi" ? {
     ready: "आपकी Report तैयार है!",
     subtitle: "AI ने आपकी personality analyze करके एक detailed career guidance report बनाई है",
@@ -165,7 +157,6 @@ export default function PaymentPage() {
     price: "₹49 में",
     secure: "Secure payment via Cashfree",
     disclaimer: "AI-based suggestions — professional counseling की जगह नहीं",
-    demo: "Demo Access (Testing)",
     emailLabel: "आपकी Email ID",
     emailPlaceholder: "जैसे: name@gmail.com",
     emailHint: "Report इस email पर भेजी जाएगी",
@@ -181,7 +172,6 @@ export default function PaymentPage() {
     price: "for ₹49",
     secure: "Secure payment via Cashfree",
     disclaimer: "AI-based suggestions — not a substitute for professional counseling",
-    demo: "Demo Access (Testing)",
     emailLabel: "Your Email ID",
     emailPlaceholder: "e.g. name@gmail.com",
     emailHint: "Report will be delivered to this email",
@@ -364,13 +354,6 @@ export default function PaymentPage() {
         {/* Disclaimer */}
         <p className="text-center text-xs text-slate-500 mb-3 px-4 leading-relaxed">{t.disclaimer}</p>
 
-        {/* Demo button for testing */}
-        <button
-          onClick={handleDemoAccess}
-          className="w-full py-2 text-xs text-slate-400 hover:text-slate-600 transition-colors"
-        >
-          {t.demo}
-        </button>
       </motion.div>
     </main>
   );
