@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { AppProvider } from "@/context/AppContext";
+import Footer from "@/components/Footer";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -19,8 +20,11 @@ export default function RootLayout({
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
       </head>
-      <body className="min-h-screen text-slate-900 antialiased">
-        <AppProvider>{children}</AppProvider>
+      <body className="min-h-screen text-slate-900 antialiased flex flex-col">
+        <AppProvider>
+          <div className="flex-1">{children}</div>
+          <Footer />
+        </AppProvider>
       </body>
     </html>
   );

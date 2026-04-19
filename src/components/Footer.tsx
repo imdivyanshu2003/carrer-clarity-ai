@@ -1,0 +1,95 @@
+import Link from "next/link";
+import { Sparkles, Mail, MapPin } from "lucide-react";
+
+export default function Footer() {
+  const year = new Date().getFullYear();
+  return (
+    <footer className="mt-16 border-t border-slate-200 bg-white/70 backdrop-blur-sm">
+      <div className="max-w-5xl mx-auto px-4 py-10">
+        <div className="grid md:grid-cols-4 gap-8 mb-8">
+          {/* Brand */}
+          <div className="md:col-span-2">
+            <div className="flex items-center gap-2 mb-3">
+              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-600 to-purple-600 flex items-center justify-center">
+                <Sparkles size={16} className="text-white" />
+              </div>
+              <span className="text-base font-bold text-slate-900">
+                Career Clarity <span className="gradient-text">AI</span>
+              </span>
+            </div>
+            <p className="text-sm text-slate-600 leading-relaxed max-w-sm mb-3">
+              AI-powered career guidance for Indian students. Get a personalized
+              career direction with a 30-day action plan in 5 minutes.
+            </p>
+            <p className="text-xs text-slate-500">
+              A product by <span className="font-semibold text-slate-700">Clarify Path</span>
+            </p>
+          </div>
+
+          {/* Policies */}
+          <div>
+            <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider mb-3">
+              Policies
+            </h4>
+            <ul className="space-y-2">
+              <li>
+                <Link href="/terms" className="text-sm text-slate-600 hover:text-violet-700 transition-colors">
+                  Terms &amp; Conditions
+                </Link>
+              </li>
+              <li>
+                <Link href="/privacy" className="text-sm text-slate-600 hover:text-violet-700 transition-colors">
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link href="/refunds" className="text-sm text-slate-600 hover:text-violet-700 transition-colors">
+                  Refunds &amp; Cancellations
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Contact */}
+          <div>
+            <h4 className="text-xs font-bold text-slate-900 uppercase tracking-wider mb-3">
+              Company
+            </h4>
+            <ul className="space-y-2">
+              <li>
+                <Link href="/pricing" className="text-sm text-slate-600 hover:text-violet-700 transition-colors">
+                  Pricing
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" className="text-sm text-slate-600 hover:text-violet-700 transition-colors">
+                  Contact Us
+                </Link>
+              </li>
+              <li>
+                <a
+                  href="mailto:clarifypathsupport@gmail.com"
+                  className="inline-flex items-center gap-1.5 text-sm text-slate-600 hover:text-violet-700 transition-colors break-all"
+                >
+                  <Mail size={12} />
+                  Email Support
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        {/* Bottom bar */}
+        <div className="flex flex-col md:flex-row items-center justify-between gap-3 pt-6 border-t border-slate-200 text-xs text-slate-500">
+          <div className="flex items-center gap-2">
+            <span>&copy; {year} Clarify Path. All rights reserved.</span>
+          </div>
+          <div className="flex items-center gap-1.5">
+            <MapPin size={12} />
+            <span>Meerut, Uttar Pradesh, India</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}

@@ -76,6 +76,32 @@ body {
   }
 }
 
+/* Policy page typography */
+.policy-content h2 {
+  @apply text-xl md:text-2xl font-bold text-slate-900 mt-8 mb-3;
+}
+.policy-content h3 {
+  @apply text-base md:text-lg font-semibold text-slate-900 mt-6 mb-2;
+}
+.policy-content p {
+  @apply text-[15px] text-slate-700 leading-relaxed mb-3;
+}
+.policy-content ul {
+  @apply list-disc pl-6 space-y-1.5 mb-4 text-[15px] text-slate-700;
+}
+.policy-content ol {
+  @apply list-decimal pl-6 space-y-1.5 mb-4 text-[15px] text-slate-700;
+}
+.policy-content a {
+  @apply text-violet-700 font-medium hover:text-violet-800 underline underline-offset-2;
+}
+.policy-content strong {
+  @apply font-semibold text-slate-900;
+}
+.policy-content .callout {
+  @apply p-4 rounded-xl bg-violet-50 border border-violet-200 text-slate-800 my-4;
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
