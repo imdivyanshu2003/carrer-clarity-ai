@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Lock } from "lucide-react";
 import { useApp } from "@/context/AppContext";
 import { questions } from "@/lib/questions";
 import { calculateTraits } from "@/lib/utils";
@@ -105,6 +105,10 @@ export default function QuizPage() {
           <span className="text-sm font-semibold text-slate-700">
             Career Clarity <span className="gradient-text">AI</span>
           </span>
+          <div className="ml-auto flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-[10px] font-semibold text-emerald-700">
+            <Lock size={10} />
+            <span>Private</span>
+          </div>
         </div>
         <ProgressBar current={currentQuestion} total={questions.length} />
       </div>

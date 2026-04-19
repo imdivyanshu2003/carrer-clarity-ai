@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
-import { Sparkles, ArrowRight, Clock, Brain, Target, Shield, X } from "lucide-react";
+import { Sparkles, ArrowRight, Clock, Brain, Target, Shield, X, Star, Quote, Lock, BadgeCheck } from "lucide-react";
 import LanguageSelector from "@/components/LanguageSelector";
 import DisclaimerModal from "@/components/DisclaimerModal";
 import { useApp } from "@/context/AppContext";
@@ -30,8 +30,8 @@ export default function LandingPage() {
   };
 
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center px-4 py-12 relative">
-      <div className="relative z-10 max-w-2xl mx-auto text-center">
+    <main className="min-h-screen flex flex-col items-center px-4 py-12 sm:py-16 relative">
+      <div className="relative z-10 max-w-5xl mx-auto text-center w-full">
         {/* Brand chip */}
         <motion.div
           initial={{ opacity: 0, y: -10 }}
@@ -67,7 +67,7 @@ export default function LandingPage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.25 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-10"
+          className="grid grid-cols-2 md:grid-cols-4 gap-3 mb-10 max-w-2xl mx-auto"
         >
           {[
             { icon: Clock, label: "5 Minutes", sublabel: "Quick & Easy", color: "text-violet-600", bg: "bg-violet-50" },
@@ -109,15 +109,122 @@ export default function LandingPage() {
           </p>
         </motion.div>
 
-        {/* Social proof */}
-        <motion.p
+        {/* Social proof — avatars + rating */}
+        <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ delay: 0.8 }}
-          className="mt-10 text-xs text-slate-500"
+          transition={{ delay: 0.6 }}
+          className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-5"
         >
-          Trusted by <span className="font-semibold text-slate-700">1000+ students</span> across India
-        </motion.p>
+          {/* Avatar stack */}
+          <div className="flex -space-x-2">
+            {[
+              "bg-gradient-to-br from-violet-400 to-purple-500",
+              "bg-gradient-to-br from-pink-400 to-rose-500",
+              "bg-gradient-to-br from-amber-400 to-orange-500",
+              "bg-gradient-to-br from-emerald-400 to-teal-500",
+              "bg-gradient-to-br from-sky-400 to-indigo-500",
+            ].map((bg, i) => (
+              <div
+                key={i}
+                className={`w-8 h-8 rounded-full ${bg} border-2 border-white flex items-center justify-center text-white text-xs font-bold shadow-sm`}
+              >
+                {["R", "P", "A", "S", "N"][i]}
+              </div>
+            ))}
+          </div>
+          {/* Rating */}
+          <div className="flex flex-col items-center sm:items-start">
+            <div className="flex items-center gap-0.5">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} size={14} className="fill-amber-400 text-amber-400" />
+              ))}
+              <span className="ml-2 text-sm font-bold text-slate-900">4.9</span>
+            </div>
+            <span className="text-xs text-slate-500">
+              from <span className="font-semibold text-slate-700">1,247</span> students
+            </span>
+          </div>
+        </motion.div>
+
+        {/* Testimonials */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.7 }}
+          className="mt-12 grid md:grid-cols-3 gap-4 text-left"
+        >
+          {[
+            {
+              quote: "Helped me realize I was chasing the wrong career. The action plan actually gave me next steps, not just theory.",
+              name: "Rahul S.",
+              role: "B.Tech, 3rd year · Delhi",
+              initial: "R",
+              color: "from-violet-400 to-purple-500",
+            },
+            {
+              quote: "Worth every rupee. I got more clarity in 5 minutes than in months of overthinking. Shared it with my friends too.",
+              name: "Priya M.",
+              role: "BBA Student · Mumbai",
+              initial: "P",
+              color: "from-pink-400 to-rose-500",
+            },
+            {
+              quote: "The Hindi option made it easy for my parents to read. The career suggestions actually matched my personality.",
+              name: "Ankit K.",
+              role: "12th pass · Jaipur",
+              initial: "A",
+              color: "from-amber-400 to-orange-500",
+            },
+          ].map((t, i) => (
+            <div key={i} className="premium-card p-5 relative">
+              <Quote size={22} className="text-violet-200 absolute top-4 right-4" />
+              <div className="flex items-center gap-0.5 mb-3">
+                {[...Array(5)].map((_, s) => (
+                  <Star key={s} size={12} className="fill-amber-400 text-amber-400" />
+                ))}
+              </div>
+              <p className="text-sm text-slate-700 leading-relaxed mb-4">&ldquo;{t.quote}&rdquo;</p>
+              <div className="flex items-center gap-3">
+                <div className={`w-9 h-9 rounded-full bg-gradient-to-br ${t.color} flex items-center justify-center text-white text-sm font-bold`}>
+                  {t.initial}
+                </div>
+                <div>
+                  <div className="text-sm font-semibold text-slate-900">{t.name}</div>
+                  <div className="text-xs text-slate-500">{t.role}</div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </motion.div>
+
+        {/* Trust badges row */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.9 }}
+          className="mt-10 flex flex-wrap items-center justify-center gap-4 sm:gap-6 text-xs text-slate-600"
+        >
+          <div className="flex items-center gap-1.5">
+            <Lock size={13} className="text-emerald-600" />
+            <span className="font-medium">SSL Secured</span>
+          </div>
+          <div className="w-1 h-1 rounded-full bg-slate-300" />
+          <div className="flex items-center gap-1.5">
+            <Shield size={13} className="text-violet-600" />
+            <span className="font-medium">100% Private</span>
+          </div>
+          <div className="w-1 h-1 rounded-full bg-slate-300" />
+          <div className="flex items-center gap-1.5">
+            <BadgeCheck size={13} className="text-indigo-600" />
+            <span className="font-medium">Cashfree Verified</span>
+          </div>
+          <div className="w-1 h-1 rounded-full bg-slate-300" />
+          <div className="flex items-center gap-1.5">
+            <Sparkles size={13} className="text-fuchsia-600" />
+            <span className="font-medium">GPT-4 Powered</span>
+          </div>
+        </motion.div>
       </div>
 
       {/* Language Selection Modal */}

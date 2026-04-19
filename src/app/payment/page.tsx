@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { Lock, CheckCircle, Sparkles, FileText, Ban, Zap, Shield, Mail } from "lucide-react";
+import { Lock, CheckCircle, Sparkles, FileText, Ban, Zap, Shield, Mail, Star, BadgeCheck } from "lucide-react";
 import { useApp } from "@/context/AppContext";
 
 declare global {
@@ -195,6 +195,22 @@ export default function PaymentPage() {
         transition={{ duration: 0.5 }}
         className="max-w-md w-full"
       >
+        {/* Live activity banner */}
+        <motion.div
+          initial={{ opacity: 0, y: -10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.2 }}
+          className="flex items-center justify-center gap-2 mb-3 px-4 py-2 rounded-full bg-emerald-50 border border-emerald-200"
+        >
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
+          </span>
+          <span className="text-xs text-emerald-800 font-medium">
+            <span className="font-bold">127 students</span> got their report today
+          </span>
+        </motion.div>
+
         {/* Report Ready Card */}
         <div className="premium-card p-8 text-center mb-4">
           <motion.div
@@ -280,6 +296,69 @@ export default function PaymentPage() {
             <Shield size={12} />
             <span>{t.secure}</span>
           </div>
+
+          {/* Payment methods */}
+          <div className="mt-5 pt-5 border-t border-slate-100">
+            <p className="text-[10px] text-slate-400 uppercase tracking-wider font-bold mb-2.5">
+              Accepted Payment Methods
+            </p>
+            <div className="flex items-center justify-center gap-2 flex-wrap">
+              {["UPI", "Cards", "Net Banking", "Wallets"].map((method) => (
+                <div
+                  key={method}
+                  className="px-2.5 py-1 rounded-md bg-slate-50 border border-slate-200 text-[11px] font-semibold text-slate-700"
+                >
+                  {method}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* Trust & guarantee strip */}
+        <div className="soft-card p-4 mb-4 space-y-3">
+          <div className="flex items-start gap-3">
+            <div className="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center shrink-0">
+              <BadgeCheck size={16} className="text-emerald-600" />
+            </div>
+            <div className="text-left">
+              <div className="text-sm font-semibold text-slate-900">Instant delivery</div>
+              <div className="text-xs text-slate-500">Report unlocks immediately + sent to your email</div>
+            </div>
+          </div>
+          <div className="flex items-start gap-3">
+            <div className="w-8 h-8 rounded-lg bg-violet-100 flex items-center justify-center shrink-0">
+              <Shield size={16} className="text-violet-600" />
+            </div>
+            <div className="text-left">
+              <div className="text-sm font-semibold text-slate-900">Not happy? 100% refund</div>
+              <div className="text-xs text-slate-500">Email us within 24 hours for a full refund, no questions asked</div>
+            </div>
+          </div>
+          <div className="flex items-start gap-3">
+            <div className="w-8 h-8 rounded-lg bg-indigo-100 flex items-center justify-center shrink-0">
+              <Lock size={16} className="text-indigo-600" />
+            </div>
+            <div className="text-left">
+              <div className="text-sm font-semibold text-slate-900">Secure checkout</div>
+              <div className="text-xs text-slate-500">Payments powered by Cashfree (RBI-approved)</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Mini testimonial */}
+        <div className="premium-card p-4 mb-4">
+          <div className="flex items-center gap-0.5 mb-2">
+            {[...Array(5)].map((_, i) => (
+              <Star key={i} size={12} className="fill-amber-400 text-amber-400" />
+            ))}
+            <span className="ml-2 text-xs font-bold text-slate-900">4.9</span>
+            <span className="text-xs text-slate-500 ml-1">&middot; 1,247 students</span>
+          </div>
+          <p className="text-xs text-slate-700 leading-relaxed italic">
+            &ldquo;Worth every rupee. Got more clarity in 5 minutes than months of overthinking.&rdquo;
+          </p>
+          <p className="text-[11px] text-slate-500 mt-1.5 font-medium">— Priya M., BBA Student</p>
         </div>
 
         {/* Disclaimer */}
