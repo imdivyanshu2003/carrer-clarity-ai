@@ -104,7 +104,7 @@ export default function QuizPage() {
             <ArrowLeft size={18} />
           </motion.button>
           <div className="flex items-center gap-2">
-            <Image src="/logo.png" alt="Logo" width={32} height={32} className="w-8 h-8 object-contain" />
+            <Image src="/logo_2.png" alt="Logo" width={40} height={40} className="w-10 h-10 object-contain" />
             <span className="text-sm font-semibold text-slate-700">
               Career Clarity <span className="gradient-text">AI</span>
             </span>

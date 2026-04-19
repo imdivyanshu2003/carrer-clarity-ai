@@ -45,7 +45,7 @@ export default function PricingPage() {
         {/* Header */}
         <div className="text-center mb-10">
           <div className="chip mb-4 mx-auto">
-            <Image src="/logo.png" alt="Logo" width={28} height={28} className="w-7 h-7 object-contain" />
+            <Image src="/logo_2.png" alt="Logo" width={36} height={36} className="w-9 h-9 object-contain" />
             <span>Pricing &amp; Products</span>
           </div>
           <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-900 mb-3">
