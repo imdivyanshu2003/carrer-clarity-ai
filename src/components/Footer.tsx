@@ -17,8 +17,9 @@ export default function Footer() {
               </span>
             </div>
             <p className="text-sm text-slate-600 leading-relaxed max-w-sm mb-3">
-              AI-powered career guidance for Indian students. Get a personalized
-              career direction with a 30-day action plan in 5 minutes.
+              India&apos;s smartest AI career guidance tool. Take a quick career assessment,
+              discover your ideal career path, and get a personalized 30-day action plan
+              — all in 5 minutes. Trusted by 2,400+ students.
             </p>
             <p className="text-xs text-slate-500">
               A product by <span className="font-semibold text-slate-700">Clarify Path</span>

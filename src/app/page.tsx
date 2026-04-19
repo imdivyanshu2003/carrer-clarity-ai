@@ -41,7 +41,7 @@ export default function LandingPage() {
           className="mb-8 flex justify-center"
         >
           <div className="chip">
-            <Image src="/logo_2.png" alt="Logo" width={36} height={36} className="w-9 h-9 object-contain" />
+            <Image src="/logo_2.png" alt="Career Clarity AI - AI career guidance tool" width={36} height={36} className="w-9 h-9 object-contain" />
             <span>AI-Powered Career Guidance</span>
           </div>
         </motion.div>
@@ -64,6 +64,7 @@ export default function LandingPage() {
         </motion.div>
 
         {/* Features grid */}
+        <h2 className="sr-only">Why Choose Career Clarity AI for Career Guidance</h2>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -149,6 +150,7 @@ export default function LandingPage() {
         </motion.div>
 
         {/* Testimonials */}
+        <h2 className="sr-only">What Students Say About Career Clarity AI</h2>
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -227,6 +229,39 @@ export default function LandingPage() {
           </div>
         </motion.div>
       </div>
+
+      {/* SEO Content Section — crawlable by Google */}
+      <section className="max-w-3xl mx-auto mt-20 px-4 text-left">
+        <h2 className="text-2xl font-bold text-slate-900 mb-4">
+          AI-Powered Career Guidance for Indian Students
+        </h2>
+        <p className="text-sm text-slate-600 leading-relaxed mb-4">
+          Career Clarity AI by Clarify Path is India&apos;s smartest career guidance tool for students and
+          young professionals. Whether you&apos;re in 10th, 12th, college, or just starting out — our
+          AI-powered career assessment helps you find the right career path in just 5 minutes.
+        </p>
+        <h3 className="text-lg font-semibold text-slate-800 mb-2">How It Works</h3>
+        <p className="text-sm text-slate-600 leading-relaxed mb-4">
+          Answer 12 carefully designed questions about your personality, interests, and thinking style.
+          Our AI engine (powered by GPT-4) analyzes your responses and generates a personalized career
+          report — including your personality summary, top 3 career matches with reasoning, careers to
+          avoid, and a detailed 30-day action plan to get started.
+        </p>
+        <h3 className="text-lg font-semibold text-slate-800 mb-2">Why Students Trust Us</h3>
+        <p className="text-sm text-slate-600 leading-relaxed mb-4">
+          Over 2,400 students across India have used Career Clarity AI for career guidance. Available in
+          both Hindi and English, our assessment is quick, private, and affordable at just ₹49. No
+          signup required — start your career test now and get instant results.
+        </p>
+        <h3 className="text-lg font-semibold text-slate-800 mb-2">What You Get</h3>
+        <ul className="text-sm text-slate-600 leading-relaxed mb-4 list-disc list-inside space-y-1">
+          <li>Detailed personality summary based on AI analysis</li>
+          <li>Top 3 career recommendations with real-world context</li>
+          <li>Careers to avoid and why they don&apos;t match your profile</li>
+          <li>30-day action plan with weekly breakdown</li>
+          <li>Report delivered instantly + sent to your email</li>
+        </ul>
+      </section>
 
       {/* Language Selection Modal */}
       <AnimatePresence>

@@ -47,10 +47,10 @@ export const metadata: Metadata = {
       "AI-powered career guidance for Indian students. Answer 12 smart questions, get a personalized career report with top career matches & a 30-day action plan. Only ₹49.",
     images: [
       {
-        url: "/logo_2.png",
+        url: "https://clarifypath.com/logo_2.png",
         width: 512,
         height: 512,
-        alt: "Career Clarity AI Logo",
+        alt: "Career Clarity AI — AI-powered career guidance for Indian students",
       },
     ],
   },
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     title: "Career Clarity AI — Find Your Perfect Career in 5 Minutes",
     description:
       "AI-powered career guidance for Indian students. 12 questions → Personalized career report + 30-day action plan. Only ₹49.",
-    images: ["/logo_2.png"],
+    images: ["https://clarifypath.com/logo_2.png"],
   },
   robots: {
     index: true,
@@ -161,6 +161,30 @@ export default function RootLayout({
                       acceptedAnswer: {
                         "@type": "Answer",
                         text: "Yes! Career Clarity AI supports both Hindi and English. You can choose your preferred language before starting the assessment.",
+                      },
+                    },
+                    {
+                      "@type": "Question",
+                      name: "How does Career Clarity AI work?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "You answer 12 carefully designed questions about your personality, interests, and thinking style. Our AI engine analyzes your responses and generates a personalized career report with top 3 career matches, careers to avoid, and a 30-day action plan.",
+                      },
+                    },
+                    {
+                      "@type": "Question",
+                      name: "Is Career Clarity AI good for students after 10th or 12th?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "Absolutely! Career Clarity AI is specifically designed for Indian students — whether you are in 10th, 12th, college, or just starting your career. The assessment takes only 5 minutes and gives you actionable career guidance.",
+                      },
+                    },
+                    {
+                      "@type": "Question",
+                      name: "Can I get a refund if I am not satisfied?",
+                      acceptedAnswer: {
+                        "@type": "Answer",
+                        text: "Yes, we offer a full refund within 24 hours of purchase, no questions asked. Simply email clarifypathsupport@gmail.com with your purchase details.",
                       },
                     },
                   ],
