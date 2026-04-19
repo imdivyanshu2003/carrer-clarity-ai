@@ -18,6 +18,7 @@ import {
   Mail,
   CheckCircle,
 } from "lucide-react";
+import Image from "next/image";
 import { useApp } from "@/context/AppContext";
 import { CareerReport, Language } from "@/lib/types";
 
@@ -224,7 +225,7 @@ export default function ReportPage() {
           className="text-center py-6"
         >
           <div className="chip mb-4">
-            <Sparkles size={14} className="text-violet-600" />
+            <Image src="/logo.png" alt="Logo" width={20} height={20} className="w-5 h-5 object-contain" />
             <span>Career Clarity AI</span>
           </div>
           <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900">{t.title}</h1>

@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { Sparkles, ArrowRight, Clock, Brain, Target, Shield, X, Star, Quote, Lock, BadgeCheck } from "lucide-react";
+import Image from "next/image";
 import LanguageSelector from "@/components/LanguageSelector";
 import DisclaimerModal from "@/components/DisclaimerModal";
 import { useApp } from "@/context/AppContext";
@@ -40,7 +41,7 @@ export default function LandingPage() {
           className="mb-8 flex justify-center"
         >
           <div className="chip">
-            <Sparkles size={14} className="text-violet-600" />
+            <Image src="/logo.png" alt="Logo" width={20} height={20} className="w-5 h-5 object-contain" />
             <span>AI-Powered Career Guidance</span>
           </div>
         </motion.div>

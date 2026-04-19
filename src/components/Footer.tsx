@@ -1,5 +1,6 @@
 import Link from "next/link";
-import { Sparkles, Mail, MapPin } from "lucide-react";
+import Image from "next/image";
+import { Mail, MapPin } from "lucide-react";
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -10,9 +11,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="md:col-span-2">
             <div className="flex items-center gap-2 mb-3">
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-violet-600 to-purple-600 flex items-center justify-center">
-                <Sparkles size={16} className="text-white" />
-              </div>
+              <Image src="/logo.png" alt="Career Clarity AI" width={32} height={32} className="w-8 h-8 object-contain" />
               <span className="text-base font-bold text-slate-900">
                 Career Clarity <span className="gradient-text">AI</span>
               </span>

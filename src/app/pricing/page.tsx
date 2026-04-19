@@ -12,6 +12,7 @@ import {
   Clock,
   BadgeCheck,
 } from "lucide-react";
+import Image from "next/image";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -44,7 +45,7 @@ export default function PricingPage() {
         {/* Header */}
         <div className="text-center mb-10">
           <div className="chip mb-4 mx-auto">
-            <Sparkles size={14} className="text-violet-600" />
+            <Image src="/logo.png" alt="Logo" width={20} height={20} className="w-5 h-5 object-contain" />
             <span>Pricing &amp; Products</span>
           </div>
           <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-900 mb-3">
