@@ -16,9 +16,10 @@ import Image from "next/image";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Pricing & Products | Career Clarity AI",
+  title: "Pricing & Products",
   description:
-    "Career Clarity AI Report — ₹49 INR. One-time payment, instant AI-generated career guidance with a 30-day action plan.",
+    "Career Clarity AI Report — just ₹49 INR. One-time payment, no subscription. Instant AI-generated career guidance report with personality summary, top career matches & 30-day action plan.",
+  alternates: { canonical: "https://clarifypath.com/pricing" },
 };
 
 export default function PricingPage() {

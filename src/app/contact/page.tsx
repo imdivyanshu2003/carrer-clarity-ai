@@ -3,9 +3,10 @@ import { ArrowLeft, Mail, MapPin, Clock, Building2 } from "lucide-react";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Contact Us | Career Clarity AI",
+  title: "Contact Us",
   description:
-    "Get in touch with Clarify Path — the team behind Career Clarity AI. Email support, address, and response times.",
+    "Get in touch with Clarify Path — the team behind Career Clarity AI. Email support, address, and response times for career guidance queries.",
+  alternates: { canonical: "https://clarifypath.com/contact" },
 };
 
 export default function ContactPage() {

@@ -2,9 +2,10 @@ import PolicyLayout from "@/components/PolicyLayout";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Refunds & Cancellations | Career Clarity AI",
+  title: "Refunds & Cancellations",
   description:
-    "Our refund and cancellation policy for Career Clarity AI reports. 24-hour full refund window, no questions asked.",
+    "Refund and cancellation policy for Career Clarity AI career reports. 24-hour full refund window, no questions asked. ₹49 one-time payment.",
+  alternates: { canonical: "https://clarifypath.com/refunds" },
 };
 
 export default function RefundsPage() {

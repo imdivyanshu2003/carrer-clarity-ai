@@ -2,9 +2,10 @@ import PolicyLayout from "@/components/PolicyLayout";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Terms & Conditions | Career Clarity AI",
+  title: "Terms & Conditions",
   description:
-    "Terms and conditions governing the use of Career Clarity AI, operated by Clarify Path.",
+    "Terms and conditions governing the use of Career Clarity AI, an AI-powered career guidance tool operated by Clarify Path, Meerut, India.",
+  alternates: { canonical: "https://clarifypath.com/terms" },
 };
 
 export default function TermsPage() {

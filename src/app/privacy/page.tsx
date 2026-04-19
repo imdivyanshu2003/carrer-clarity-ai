@@ -2,9 +2,10 @@ import PolicyLayout from "@/components/PolicyLayout";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Privacy Policy | Career Clarity AI",
+  title: "Privacy Policy",
   description:
-    "How Career Clarity AI (operated by Clarify Path) collects, uses, and protects your personal information.",
+    "How Career Clarity AI (operated by Clarify Path) collects, uses, and protects your personal information. Your career assessment data is safe with us.",
+  alternates: { canonical: "https://clarifypath.com/privacy" },
 };
 
 export default function PrivacyPage() {
