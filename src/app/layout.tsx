@@ -19,7 +19,10 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-        <link rel="icon" href="/logo_1.png" type="image/png" />
+        <link rel="icon" href="/logo_1.png" type="image/png" sizes="any" />
+        <link rel="apple-touch-icon" href="/logo_1.png" />
+        <link rel="manifest" href="/site.webmanifest" />
+        <meta name="theme-color" content="#7c3aed" />
       </head>
       <body className="min-h-screen text-slate-900 antialiased flex flex-col">
         <AppProvider>
