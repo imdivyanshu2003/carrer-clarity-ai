@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { ArrowLeft, Lock } from "lucide-react";
+import { ArrowLeft, Lock, AlertTriangle } from "lucide-react";
 import Image from "next/image";
 import { useApp } from "@/context/AppContext";
 import { questions } from "@/lib/questions";
@@ -26,6 +26,7 @@ export default function QuizPage() {
     setReport,
     setIsAnalyzing,
   } = useApp();
+  const [serviceError, setServiceError] = useState("");
 
   useEffect(() => {
     if (!language) {
@@ -55,19 +56,29 @@ export default function QuizPage() {
           body: JSON.stringify({ prompt, language }),
         });
 
-        if (!response.ok) throw new Error("Analysis failed");
-
         const data = await response.json();
+
+        if (!response.ok) {
+          setIsAnalyzing(false);
+          setServiceError(
+            data.error ||
+            (language === "hi"
+              ? "सेवा अस्थायी रूप से अनुपलब्ध है। कृपया बाद में पुनः प्रयास करें।"
+              : "Service temporarily unavailable. Please try again later.")
+          );
+          return;
+        }
+
         setReport(data.report);
         setIsAnalyzing(false);
         router.push("/payment");
       } catch (error) {
         console.error("Analysis error:", error);
         setIsAnalyzing(false);
-        alert(
+        setServiceError(
           language === "hi"
-            ? "कुछ गलत हो गया। कृपया दोबारा try करें।"
-            : "Something went wrong. Please try again."
+            ? "सेवा अस्थायी रूप से अनुपलब्ध है। कृपया बाद में पुनः प्रयास करें।"
+            : "Service temporarily unavailable. Please try again later."
         );
       }
     }
@@ -80,6 +91,28 @@ export default function QuizPage() {
       router.push("/");
     }
   };
+
+  if (serviceError) {
+    return (
+      <main className="min-h-screen flex items-center justify-center px-4">
+        <div className="premium-card p-8 max-w-md w-full text-center">
+          <div className="w-14 h-14 rounded-2xl bg-amber-50 border border-amber-200 flex items-center justify-center mx-auto mb-4">
+            <AlertTriangle size={28} className="text-amber-500" />
+          </div>
+          <h2 className="text-xl font-bold text-slate-900 mb-2">
+            {language === "hi" ? "सेवा अनुपलब्ध" : "Service Unavailable"}
+          </h2>
+          <p className="text-sm text-slate-600 leading-relaxed mb-6">{serviceError}</p>
+          <button
+            onClick={() => { setServiceError(""); router.push("/"); }}
+            className="btn-primary w-full py-3 text-sm font-semibold"
+          >
+            {language === "hi" ? "होम पर वापस जाएं" : "Go Back Home"}
+          </button>
+        </div>
+      </main>
+    );
+  }
 
   if (isAnalyzing) {
     return (
