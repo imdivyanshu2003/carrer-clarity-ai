@@ -11,7 +11,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="md:col-span-2">
             <div className="flex items-center gap-2 mb-3">
-              <Image src="/logo.png" alt="Career Clarity AI" width={32} height={32} className="w-8 h-8 object-contain" />
+              <Image src="/logo.png" alt="Career Clarity AI" width={40} height={40} className="w-10 h-10 object-contain" />
               <span className="text-base font-bold text-slate-900">
                 Career Clarity <span className="gradient-text">AI</span>
               </span>

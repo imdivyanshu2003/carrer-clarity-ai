@@ -41,7 +41,7 @@ export default function LandingPage() {
           className="mb-8 flex justify-center"
         >
           <div className="chip">
-            <Image src="/logo.png" alt="Logo" width={20} height={20} className="w-5 h-5 object-contain" />
+            <Image src="/logo.png" alt="Logo" width={28} height={28} className="w-7 h-7 object-contain" />
             <span>AI-Powered Career Guidance</span>
           </div>
         </motion.div>

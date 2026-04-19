@@ -225,7 +225,7 @@ export default function ReportPage() {
           className="text-center py-6"
         >
           <div className="chip mb-4">
-            <Image src="/logo.png" alt="Logo" width={20} height={20} className="w-5 h-5 object-contain" />
+            <Image src="/logo.png" alt="Logo" width={28} height={28} className="w-7 h-7 object-contain" />
             <span>Career Clarity AI</span>
           </div>
           <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900">{t.title}</h1>
