@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
-import { Sparkles, ArrowRight, Clock, Brain, Target, Shield } from "lucide-react";
+import { AnimatePresence, motion } from "framer-motion";
+import { Sparkles, ArrowRight, Clock, Brain, Target, Shield, X } from "lucide-react";
 import LanguageSelector from "@/components/LanguageSelector";
 import DisclaimerModal from "@/components/DisclaimerModal";
 import { useApp } from "@/context/AppContext";
@@ -12,11 +12,13 @@ import { Language } from "@/lib/types";
 export default function LandingPage() {
   const router = useRouter();
   const { setLanguage } = useApp();
+  const [showLanguageModal, setShowLanguageModal] = useState(false);
   const [showDisclaimer, setShowDisclaimer] = useState(false);
   const [selectedLang, setSelectedLang] = useState<Language | null>(null);
 
   const handleLanguageSelect = (lang: Language) => {
     setSelectedLang(lang);
+    setShowLanguageModal(false);
     setShowDisclaimer(true);
   };
 
@@ -86,8 +88,26 @@ export default function LandingPage() {
           ))}
         </motion.div>
 
-        {/* Language Selection */}
-        <LanguageSelector onSelect={handleLanguageSelect} />
+        {/* Primary CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.4 }}
+          className="flex flex-col items-center gap-3"
+        >
+          <motion.button
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            onClick={() => setShowLanguageModal(true)}
+            className="btn-primary text-base px-8 py-4"
+          >
+            Start Free Assessment
+            <ArrowRight size={18} />
+          </motion.button>
+          <p className="text-xs text-slate-500">
+            Takes 5 minutes &middot; No signup required
+          </p>
+        </motion.div>
 
         {/* Social proof */}
         <motion.p
@@ -99,6 +119,46 @@ export default function LandingPage() {
           Trusted by <span className="font-semibold text-slate-700">1000+ students</span> across India
         </motion.p>
       </div>
+
+      {/* Language Selection Modal */}
+      <AnimatePresence>
+        {showLanguageModal && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            onClick={() => setShowLanguageModal(false)}
+            className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          >
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0, y: 10 }}
+              animate={{ scale: 1, opacity: 1, y: 0 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              onClick={(e) => e.stopPropagation()}
+              className="bg-white rounded-2xl p-8 max-w-md w-full border border-slate-200 shadow-2xl relative"
+            >
+              <button
+                onClick={() => setShowLanguageModal(false)}
+                className="absolute top-4 right-4 text-slate-400 hover:text-slate-700 transition-colors"
+                aria-label="Close"
+              >
+                <X size={20} />
+              </button>
+
+              <div className="text-center mb-6">
+                <h2 className="text-xl font-bold text-slate-900 mb-1">
+                  Let&apos;s get started
+                </h2>
+                <p className="text-sm text-slate-500">
+                  Which language would you prefer?
+                </p>
+              </div>
+
+              <LanguageSelector onSelect={handleLanguageSelect} />
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       {/* Disclaimer Modal */}
       {showDisclaimer && selectedLang && (
