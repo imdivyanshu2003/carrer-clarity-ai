@@ -125,7 +125,7 @@ export default function PaymentPage() {
 
       if (verifyRes.ok && verifyData.verified) {
         setIsPaid(true);
-        router.push("/report");
+        router.push("/upsell");
       } else {
         alert(
           language === "hi"

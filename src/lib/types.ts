@@ -77,12 +77,42 @@ export interface CareerReport {
   actionPlan: ActionPlan;
 }
 
+export interface PremiumReport {
+  deepPersonality: string;
+  coreValues: string[];
+  skillRoadmap: {
+    skill: string;
+    why: string;
+    howToLearn: string;
+    timeframe: string;
+  }[];
+  careerStrategy: {
+    shortTerm: string;
+    midTerm: string;
+    longTerm: string;
+  };
+  mistakesToAvoid: {
+    mistake: string;
+    consequence: string;
+    whatToDo: string;
+  }[];
+  detailedActionPlan: {
+    week: number;
+    focus: string;
+    tasks: string[];
+    outcome: string;
+  }[];
+  motivationalNote: string;
+}
+
 export interface AppState {
   language: Language | null;
   currentQuestion: number;
   answers: UserAnswer[];
   report: CareerReport | null;
+  premiumReport: PremiumReport | null;
   isPaid: boolean;
+  isUpgraded: boolean;
   isAnalyzing: boolean;
   paymentOrderId: string | null;
   whatsappNumber: string;

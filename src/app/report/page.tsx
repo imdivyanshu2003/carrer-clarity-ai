@@ -24,7 +24,7 @@ import { CareerReport, Language } from "@/lib/types";
 
 export default function ReportPage() {
   const router = useRouter();
-  const { language, report, isPaid, userEmail, reset } = useApp();
+  const { language, report, premiumReport, isPaid, isUpgraded, userEmail, reset } = useApp();
   const reportRef = useRef<HTMLDivElement>(null);
   const [emailSent, setEmailSent] = useState(false);
   const [emailSending, setEmailSending] = useState(false);
@@ -118,9 +118,11 @@ export default function ReportPage() {
     router.push("/");
   };
 
+  const isPremium = isUpgraded && premiumReport;
+
   const t = language === "hi"
     ? {
-        title: "आपकी Career Clarity Report",
+        title: isPremium ? "आपकी Premium Career Clarity Report" : "आपकी Career Clarity Report",
         personality: "Personality Summary",
         strengths: "आपकी Strengths",
         weaknesses: "Areas of Improvement",
@@ -139,6 +141,25 @@ export default function ReportPage() {
         share: "दोस्तों को Share करें",
         startOver: "दोबारा शुरू करें",
         disclaimer: "Disclaimer: यह AI-based suggestions हैं। ये professional career counseling की जगह नहीं ले सकतीं। इन्हें एक starting point की तरह use करें।",
+        premiumBadge: "PREMIUM",
+        deepPersonality: "Deep Personality Analysis",
+        coreValues: "आपकी Core Values",
+        skillRoadmap: "Skill Roadmap",
+        careerStrategy: "Career Strategy",
+        shortTerm: "अगले 1-3 महीने",
+        midTerm: "6-12 महीने",
+        longTerm: "2-5 साल",
+        mistakesToAvoid: "गलतियाँ जो आपको Avoid करनी हैं",
+        mistakeLabel: "गलती",
+        consequenceLabel: "नतीजा",
+        whatToDoLabel: "क्या करें",
+        detailedPlan: "Detailed 4-Week Action Plan",
+        tasks: "Tasks",
+        outcome: "इस हफ्ते का Result",
+        howToLearn: "कैसे सीखें",
+        whyLearn: "क्यों ज़रूरी है",
+        timeframe: "समय",
+        motivation: "आपके लिए एक Message",
       }
     : {
         title: "Your Career Clarity Report",
@@ -160,6 +181,25 @@ export default function ReportPage() {
         share: "Share with Friends",
         startOver: "Start Over",
         disclaimer: "Disclaimer: These are AI-based suggestions. They are not a substitute for professional career counseling. Use them as a starting point.",
+        premiumBadge: "PREMIUM",
+        deepPersonality: "Deep Personality Analysis",
+        coreValues: "Your Core Values",
+        skillRoadmap: "Skill Roadmap",
+        careerStrategy: "Career Strategy",
+        shortTerm: "Next 1-3 Months",
+        midTerm: "6-12 Months",
+        longTerm: "2-5 Years",
+        mistakesToAvoid: "Mistakes You Must Avoid",
+        mistakeLabel: "Mistake",
+        consequenceLabel: "Consequence",
+        whatToDoLabel: "What to do",
+        detailedPlan: "Detailed 4-Week Action Plan",
+        tasks: "Tasks",
+        outcome: "Week Outcome",
+        howToLearn: "How to Learn",
+        whyLearn: "Why It Matters",
+        timeframe: "Timeframe",
+        motivation: "A Message For You",
       };
 
   return (
@@ -351,6 +391,143 @@ export default function ReportPage() {
             </div>
           </div>
         </ReportSection>
+
+        {/* ═══ PREMIUM SECTIONS ═══ */}
+        {isPremium && premiumReport && (
+          <>
+            {/* Premium Badge Divider */}
+            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.5 }} className="text-center py-4">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-violet-600 to-purple-600 text-white text-xs font-bold">
+                <Sparkles size={14} />
+                {t.premiumBadge} — Deep Career Clarity Upgrade
+              </div>
+            </motion.div>
+
+            {/* Deep Personality */}
+            <ReportSection icon={Brain} title={t.deepPersonality} delay={0.55} accent="violet">
+              <p className="text-slate-700 leading-relaxed">{premiumReport.deepPersonality}</p>
+            </ReportSection>
+
+            {/* Core Values */}
+            <ReportSection icon={Target} title={t.coreValues} delay={0.6} accent="indigo">
+              <ul className="space-y-2.5">
+                {premiumReport.coreValues.map((v: string, i: number) => (
+                  <li key={i} className="flex items-start gap-2.5 text-sm text-slate-700 leading-relaxed">
+                    <span className="w-5 h-5 rounded-full bg-indigo-100 flex items-center justify-center text-indigo-700 text-xs font-bold shrink-0 mt-0.5">{i + 1}</span>
+                    <span>{v}</span>
+                  </li>
+                ))}
+              </ul>
+            </ReportSection>
+
+            {/* Skill Roadmap */}
+            <ReportSection icon={TrendingUp} title={t.skillRoadmap} delay={0.65} accent="emerald">
+              <div className="space-y-3">
+                {premiumReport.skillRoadmap.map((s: any, i: number) => (
+                  <div key={i} className="p-4 rounded-xl bg-emerald-50 border border-emerald-100">
+                    <h4 className="font-bold text-emerald-900 mb-2">{s.skill}</h4>
+                    <div className="space-y-2">
+                      <div>
+                        <p className="text-[10px] font-bold text-emerald-700 uppercase tracking-wider">{t.whyLearn}</p>
+                        <p className="text-sm text-slate-700 leading-relaxed">{s.why}</p>
+                      </div>
+                      <div>
+                        <p className="text-[10px] font-bold text-emerald-700 uppercase tracking-wider">{t.howToLearn}</p>
+                        <p className="text-sm text-slate-700 leading-relaxed">{s.howToLearn}</p>
+                      </div>
+                      <div>
+                        <p className="text-[10px] font-bold text-emerald-700 uppercase tracking-wider">{t.timeframe}</p>
+                        <p className="text-sm text-slate-700 leading-relaxed">{s.timeframe}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </ReportSection>
+
+            {/* Career Strategy */}
+            <ReportSection icon={Target} title={t.careerStrategy} delay={0.7} accent="violet">
+              <div className="space-y-3">
+                {[
+                  { label: t.shortTerm, value: premiumReport.careerStrategy.shortTerm, color: "violet" },
+                  { label: t.midTerm, value: premiumReport.careerStrategy.midTerm, color: "indigo" },
+                  { label: t.longTerm, value: premiumReport.careerStrategy.longTerm, color: "purple" },
+                ].map((item, i) => (
+                  <div key={i} className="p-4 rounded-xl bg-violet-50 border border-violet-100">
+                    <p className="text-[10px] font-bold text-violet-700 uppercase tracking-wider mb-1">{item.label}</p>
+                    <p className="text-sm text-slate-700 leading-relaxed">{item.value}</p>
+                  </div>
+                ))}
+              </div>
+            </ReportSection>
+
+            {/* Mistakes to Avoid */}
+            <ReportSection icon={AlertTriangle} title={t.mistakesToAvoid} delay={0.75} accent="rose">
+              <div className="space-y-3">
+                {premiumReport.mistakesToAvoid.map((m: any, i: number) => (
+                  <div key={i} className="p-4 rounded-xl bg-rose-50 border border-rose-100 border-l-4 border-l-rose-400">
+                    <h4 className="font-bold text-rose-900 mb-2">
+                      <span className="text-[10px] font-bold text-rose-600 uppercase tracking-wider">{t.mistakeLabel}:</span> {m.mistake}
+                    </h4>
+                    <div className="space-y-1.5">
+                      <p className="text-sm text-slate-700 leading-relaxed">
+                        <span className="text-xs font-bold text-rose-600">{t.consequenceLabel}:</span> {m.consequence}
+                      </p>
+                      <p className="text-sm text-emerald-800 leading-relaxed bg-emerald-50 rounded-lg p-2">
+                        <span className="text-xs font-bold text-emerald-700">{t.whatToDoLabel}:</span> {m.whatToDo}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </ReportSection>
+
+            {/* Detailed 4-Week Plan */}
+            <ReportSection icon={Zap} title={t.detailedPlan} delay={0.8} accent="amber">
+              <div className="space-y-3">
+                {premiumReport.detailedActionPlan.map((w: any, i: number) => (
+                  <div key={i} className="p-4 rounded-xl bg-amber-50 border border-amber-100">
+                    <div className="flex items-center gap-2 mb-2">
+                      <span className="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center text-sm font-bold text-white">
+                        {w.week}
+                      </span>
+                      <h4 className="font-bold text-slate-900">{w.focus}</h4>
+                    </div>
+                    <div className="ml-10 space-y-2">
+                      <div>
+                        <p className="text-[10px] font-bold text-amber-700 uppercase tracking-wider mb-1">{t.tasks}</p>
+                        <ul className="space-y-1">
+                          {w.tasks.map((task: string, j: number) => (
+                            <li key={j} className="flex items-start gap-2 text-sm text-slate-700">
+                              <CheckCircle size={14} className="text-amber-500 shrink-0 mt-0.5" />
+                              <span>{task}</span>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                      <div className="p-2 rounded-lg bg-white border border-amber-100">
+                        <p className="text-[10px] font-bold text-amber-700 uppercase tracking-wider">{t.outcome}</p>
+                        <p className="text-sm text-slate-700">{w.outcome}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </ReportSection>
+
+            {/* Motivational Note */}
+            <motion.div initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.85 }}
+              className="premium-card p-6 bg-gradient-to-br from-violet-50 via-purple-50 to-indigo-50 border-violet-200">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-9 h-9 rounded-xl flex items-center justify-center bg-violet-100 text-violet-700">
+                  <Sparkles size={18} />
+                </div>
+                <h3 className="font-bold text-slate-900 text-base">{t.motivation}</h3>
+              </div>
+              <p className="text-slate-700 leading-relaxed italic">{premiumReport.motivationalNote}</p>
+            </motion.div>
+          </>
+        )}
 
         {/* Disclaimer */}
         <motion.div

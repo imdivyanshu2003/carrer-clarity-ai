@@ -1,14 +1,16 @@
 "use client";
 
 import React, { createContext, useContext, useState, useCallback } from "react";
-import { Language, UserAnswer, CareerReport, AppState } from "@/lib/types";
+import { Language, UserAnswer, CareerReport, PremiumReport, AppState } from "@/lib/types";
 
 interface AppContextType extends AppState {
   setLanguage: (lang: Language) => void;
   addAnswer: (answer: UserAnswer) => void;
   goToQuestion: (num: number) => void;
   setReport: (report: CareerReport) => void;
+  setPremiumReport: (report: PremiumReport) => void;
   setIsPaid: (paid: boolean) => void;
+  setIsUpgraded: (upgraded: boolean) => void;
   setIsAnalyzing: (analyzing: boolean) => void;
   setPaymentOrderId: (orderId: string) => void;
   setWhatsappNumber: (num: string) => void;
@@ -21,7 +23,9 @@ const initialState: AppState = {
   currentQuestion: 0,
   answers: [],
   report: null,
+  premiumReport: null,
   isPaid: false,
+  isUpgraded: false,
   isAnalyzing: false,
   paymentOrderId: null,
   whatsappNumber: "",
@@ -60,8 +64,16 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     setState((prev) => ({ ...prev, report }));
   }, []);
 
+  const setPremiumReport = useCallback((premiumReport: PremiumReport) => {
+    setState((prev) => ({ ...prev, premiumReport }));
+  }, []);
+
   const setIsPaid = useCallback((paid: boolean) => {
     setState((prev) => ({ ...prev, isPaid: paid }));
+  }, []);
+
+  const setIsUpgraded = useCallback((upgraded: boolean) => {
+    setState((prev) => ({ ...prev, isUpgraded: upgraded }));
   }, []);
 
   const setIsAnalyzing = useCallback((analyzing: boolean) => {
@@ -92,7 +104,9 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         addAnswer,
         goToQuestion,
         setReport,
+        setPremiumReport,
         setIsPaid,
+        setIsUpgraded,
         setIsAnalyzing,
         setPaymentOrderId,
         setWhatsappNumber,
