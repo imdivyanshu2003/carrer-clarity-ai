@@ -155,7 +155,10 @@ export default function PaymentPage() {
     action: "30-Day Action Plan",
     unlock: "Report Unlock करें",
     price: "₹99 में",
+    originalPrice: "₹299",
+    discount: "67% OFF",
     secure: "Secure payment via Cashfree",
+    riskFree: "संतुष्ट नहीं? 24 घंटे में 100% refund",
     disclaimer: "AI-based suggestions — professional counseling की जगह नहीं",
     emailLabel: "आपकी Email ID",
     emailPlaceholder: "जैसे: name@gmail.com",
@@ -170,7 +173,10 @@ export default function PaymentPage() {
     action: "30-Day Action Plan",
     unlock: "Unlock Your Report",
     price: "for ₹99",
+    originalPrice: "₹299",
+    discount: "67% OFF",
     secure: "Secure payment via Cashfree",
+    riskFree: "Not satisfied? 100% refund within 24 hours",
     disclaimer: "AI-based suggestions — not a substitute for professional counseling",
     emailLabel: "Your Email ID",
     emailPlaceholder: "e.g. name@gmail.com",
@@ -276,8 +282,11 @@ export default function PaymentPage() {
                 Processing...
               </span>
             ) : (
-              <span>
-                {t.unlock} — {t.price}
+              <span className="flex items-center justify-center gap-2">
+                {t.unlock} —
+                <span className="line-through text-white/50 text-sm">{t.originalPrice}</span>
+                <span>{t.price}</span>
+                <span className="text-[10px] font-bold bg-white/20 px-1.5 py-0.5 rounded-full">{t.discount}</span>
               </span>
             )}
           </motion.button>
@@ -286,6 +295,9 @@ export default function PaymentPage() {
             <Shield size={12} />
             <span>{t.secure}</span>
           </div>
+          <p className="text-xs text-emerald-600 font-medium text-center mt-2">
+            {t.riskFree}
+          </p>
 
           {/* Payment methods */}
           <div className="mt-5 pt-5 border-t border-slate-100">

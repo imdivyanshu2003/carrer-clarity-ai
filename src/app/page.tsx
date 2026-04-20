@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
-import { Sparkles, ArrowRight, Clock, Brain, Target, Shield, X, Star, Quote, Lock, BadgeCheck } from "lucide-react";
+import { Sparkles, ArrowRight, Clock, Brain, Target, Shield, X, Star, Quote, Lock, BadgeCheck, FileText, Zap, Ban, CheckCircle } from "lucide-react";
 import Image from "next/image";
 import LanguageSelector from "@/components/LanguageSelector";
 import DisclaimerModal from "@/components/DisclaimerModal";
@@ -54,12 +54,12 @@ export default function LandingPage() {
           className="mb-8"
         >
           <h1 className="text-5xl md:text-7xl font-extrabold leading-[1.05] tracking-tight mb-5">
-            <span className="gradient-text">Career Clarity</span>
+            <span className="gradient-text">Clear Career Direction</span>
             <br />
-            <span className="text-slate-900">in 5 minutes.</span>
+            <span className="text-slate-900">in 5 Minutes.</span>
           </h1>
           <p className="text-base md:text-lg text-slate-600 max-w-lg mx-auto leading-relaxed">
-            Answer 12 smart questions. Get a personalized career direction with a 30-day action plan — powered by AI.
+            Stop guessing. Answer 12 smart questions and get your personalized career report — with top career matches, personality insights &amp; a 30-day action plan.
           </p>
         </motion.div>
 
@@ -103,12 +103,19 @@ export default function LandingPage() {
             onClick={() => setShowLanguageModal(true)}
             className="btn-primary text-base px-8 py-4"
           >
-            Start Free Assessment
+            Get Your Career Report
             <ArrowRight size={18} />
           </motion.button>
-          <p className="text-xs text-slate-500">
-            Takes 5 minutes &middot; No signup required
-          </p>
+          <div className="flex flex-col items-center gap-1 mt-1">
+            <div className="flex items-center gap-2">
+              <span className="text-sm text-slate-400 line-through">&#8377;299</span>
+              <span className="text-sm font-bold text-violet-700">&#8377;99 only</span>
+              <span className="text-[10px] font-semibold bg-rose-100 text-rose-700 px-2 py-0.5 rounded-full">67% OFF</span>
+            </div>
+            <p className="text-xs text-slate-500">
+              Takes 5 minutes &middot; No signup required
+            </p>
+          </div>
         </motion.div>
 
         {/* Social proof — avatars + rating */}
@@ -199,6 +206,48 @@ export default function LandingPage() {
               </div>
             </div>
           ))}
+        </motion.div>
+
+        {/* What You Get — Report Preview */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.65 }}
+          className="mt-14 max-w-2xl mx-auto"
+        >
+          <h2 className="text-xl md:text-2xl font-bold text-slate-900 mb-2 text-center">
+            What You Get in Your Report
+          </h2>
+          <p className="text-sm text-slate-500 mb-6 text-center">
+            A career counsellor charges &#8377;2,000&ndash;10,000. You get the same clarity for &#8377;99.
+          </p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            {[
+              { icon: Sparkles, title: "Personality Insights", desc: "AI-analyzed summary of your thinking style, strengths & work preferences", color: "text-violet-600", bg: "bg-violet-50" },
+              { icon: FileText, title: "Top 3 Career Matches", desc: "Personalized career paths with real-world reasoning & salary context", color: "text-indigo-600", bg: "bg-indigo-50" },
+              { icon: Ban, title: "Careers to Avoid", desc: "Paths that don't match your personality — and exactly why", color: "text-rose-600", bg: "bg-rose-50" },
+              { icon: Zap, title: "30-Day Action Plan", desc: "Weekly breakdown: skill to learn, project to build, steps to take", color: "text-amber-600", bg: "bg-amber-50" },
+            ].map((item, i) => (
+              <div key={i} className="soft-card p-4 flex items-start gap-3 text-left">
+                <div className={`w-10 h-10 rounded-lg ${item.bg} flex items-center justify-center shrink-0`}>
+                  <item.icon size={18} className={item.color} />
+                </div>
+                <div>
+                  <div className="text-sm font-semibold text-slate-900">{item.title}</div>
+                  <div className="text-xs text-slate-500 leading-relaxed">{item.desc}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div className="mt-4 p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-center">
+            <div className="flex items-center justify-center gap-2 mb-1">
+              <CheckCircle size={16} className="text-emerald-600" />
+              <span className="text-sm font-semibold text-emerald-800">Risk-Free Guarantee</span>
+            </div>
+            <p className="text-xs text-emerald-700">
+              Not satisfied? Get a 100% refund within 24 hours. No questions asked.
+            </p>
+          </div>
         </motion.div>
 
         {/* Trust badges row */}

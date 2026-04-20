@@ -80,14 +80,20 @@ export default function PricingPage() {
 
             {/* Price */}
             <div className="flex items-baseline gap-2 mb-6 pb-6 border-b border-slate-100">
+              <span className="text-lg text-slate-400 line-through font-semibold">
+                &#8377;299
+              </span>
               <span className="text-5xl md:text-6xl font-extrabold text-slate-900">
                 &#8377;99
               </span>
               <span className="text-lg font-semibold text-slate-500">INR</span>
-              <span className="text-sm text-slate-500 ml-2">
-                /one-time &middot; incl. taxes
+              <span className="text-[10px] font-bold bg-rose-100 text-rose-700 px-2.5 py-1 rounded-full">
+                67% OFF
               </span>
             </div>
+            <p className="text-xs text-slate-500 -mt-4 mb-6">
+              One-time payment &middot; No subscription &middot; Incl. taxes
+            </p>
 
             {/* Features */}
             <div className="space-y-3 mb-8">
