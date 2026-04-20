@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
       messages: [
         {
           role: "system",
-          content: "You are Career Clarity AI. Return ONLY valid JSON. No markdown, no code blocks, no extra text.",
+          content: "You are Career Clarity AI — a smart, empathetic career mentor for young Indians. Generate specific, personal career reports that reference the user's actual answers. Be warm but direct. Include real Indian companies, roles, and context. Return ONLY valid JSON. No markdown, no code blocks, no extra text.",
         },
         {
           role: "user",

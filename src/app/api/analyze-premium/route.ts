@@ -27,20 +27,20 @@ export async function POST(request: NextRequest) {
     const prompt = buildPremiumPrompt(basicReport, answers, language || "en");
 
     const completion = await openai.chat.completions.create({
-      model: "gpt-4o-mini",
+      model: "gpt-4o",
       messages: [
         {
           role: "system",
           content:
-            "You are Career Clarity AI Premium. You generate DEEP, hyper-detailed career reports. Return ONLY valid JSON. No markdown, no code blocks, no extra text.",
+            "You are Career Clarity AI Premium — a world-class career strategist who has mentored 10,000+ Indian students. You generate DEEP, hyper-detailed, brutally specific premium career reports that feel like a ₹10,000 personal consultation. Every sentence must be specific to THIS person — no generic advice. Include real company names, real platform names, real YouTube channel names, real course names. The user paid extra for this — make every word count. Return ONLY valid JSON. No markdown, no code blocks, no extra text.",
         },
         {
           role: "user",
           content: prompt,
         },
       ],
-      temperature: 0.7,
-      max_tokens: 4000,
+      temperature: 0.75,
+      max_tokens: 4500,
     });
 
     const content = completion.choices[0]?.message?.content;
