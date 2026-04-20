@@ -250,7 +250,7 @@ export default function LandingPage() {
         <h3 className="text-lg font-semibold text-slate-800 mb-2">Why Students Trust Us</h3>
         <p className="text-sm text-slate-600 leading-relaxed mb-4">
           Over 2,400 students across India have used Career Clarity AI for career guidance. Available in
-          both Hindi and English, our assessment is quick, private, and affordable at just ₹49. No
+          both Hindi and English, our assessment is quick, private, and affordable at just ₹99. No
           signup required — start your career test now and get instant results.
         </p>
         <h3 className="text-lg font-semibold text-slate-800 mb-2">What You Get</h3>
@@ -277,7 +277,7 @@ export default function LandingPage() {
         </p>
         <p className="text-sm text-slate-600 leading-relaxed mb-2">
           <strong>How much does career counselling cost?</strong> Traditional career counsellors charge
-          ₹2,000–10,000 per session. Career Clarity AI gives you a detailed, AI-powered career report for just ₹49.
+          ₹2,000–10,000 per session. Career Clarity AI gives you a detailed, AI-powered career report for just ₹99.
         </p>
         <p className="text-sm text-slate-600 leading-relaxed mb-4">
           <strong>Is this career test available in Hindi?</strong> Yes! Career Clarity AI supports both

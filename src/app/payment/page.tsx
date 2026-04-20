@@ -76,7 +76,7 @@ export default function PaymentPage() {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          amount: 49,
+          amount: 99,
           email: emailInput.trim(),
         }),
       });
@@ -154,7 +154,7 @@ export default function PaymentPage() {
     avoid: "Careers to Avoid",
     action: "30-Day Action Plan",
     unlock: "Report Unlock करें",
-    price: "₹49 में",
+    price: "₹99 में",
     secure: "Secure payment via Cashfree",
     disclaimer: "AI-based suggestions — professional counseling की जगह नहीं",
     emailLabel: "आपकी Email ID",
@@ -169,7 +169,7 @@ export default function PaymentPage() {
     avoid: "Careers to Avoid",
     action: "30-Day Action Plan",
     unlock: "Unlock Your Report",
-    price: "for ₹49",
+    price: "for ₹99",
     secure: "Secure payment via Cashfree",
     disclaimer: "AI-based suggestions — not a substitute for professional counseling",
     emailLabel: "Your Email ID",

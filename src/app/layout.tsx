@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     template: "%s | Career Clarity AI",
   },
   description:
-    "Take a free 12-question AI career assessment and get a personalized career report — top career matches, personality summary, strengths & a 30-day action plan. Best career guidance tool for students after 10th, 12th & college. Only ₹49.",
+    "Take a free 12-question AI career assessment and get a personalized career report — top career matches, personality summary, strengths & a 30-day action plan. Best career guidance tool for students after 10th, 12th & college. Only ₹99.",
   keywords: [
     "career clarity",
     "career guidance",
@@ -68,7 +68,7 @@ export const metadata: Metadata = {
     siteName: "Career Clarity AI",
     title: "Career Clarity AI — Find Your Perfect Career Path in 5 Minutes",
     description:
-      "AI-powered career guidance for Indian students. Answer 12 smart questions, get a personalized career report with top career matches & a 30-day action plan. Only ₹49.",
+      "AI-powered career guidance for Indian students. Answer 12 smart questions, get a personalized career report with top career matches & a 30-day action plan. Only ₹99.",
     images: [
       {
         url: "https://clarifypath.com/logo_2.png",
@@ -82,7 +82,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Career Clarity AI — Find Your Perfect Career in 5 Minutes",
     description:
-      "AI-powered career guidance for Indian students. 12 questions → Personalized career report + 30-day action plan. Only ₹49.",
+      "AI-powered career guidance for Indian students. 12 questions → Personalized career report + 30-day action plan. Only ₹99.",
     images: ["https://clarifypath.com/logo_2.png"],
   },
   robots: {
@@ -143,7 +143,7 @@ export default function RootLayout({
                     "AI-powered career guidance tool for Indian students. Take a 12-question assessment and get a personalized career report with top career matches, strengths, weaknesses & a 30-day action plan.",
                   offers: {
                     "@type": "Offer",
-                    price: "49",
+                    price: "99",
                     priceCurrency: "INR",
                     availability: "https://schema.org/InStock",
                   },
@@ -176,7 +176,7 @@ export default function RootLayout({
                       name: "How much does Career Clarity AI cost?",
                       acceptedAnswer: {
                         "@type": "Answer",
-                        text: "The Career Clarity AI report costs just ₹49 INR — a one-time payment with no subscriptions or hidden fees. You get instant access to your full personalized career report.",
+                        text: "The Career Clarity AI report costs just ₹99 INR — a one-time payment with no subscriptions or hidden fees. You get instant access to your full personalized career report.",
                       },
                     },
                     {

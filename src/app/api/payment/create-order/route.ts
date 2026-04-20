@@ -24,7 +24,7 @@ export async function POST(request: NextRequest) {
 
     const payload = {
       order_id: orderId,
-      order_amount: amount || 49,
+      order_amount: amount || 99,
       order_currency: "INR",
       customer_details: {
         customer_id: `cust_${Date.now()}`,

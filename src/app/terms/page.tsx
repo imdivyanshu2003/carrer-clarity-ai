@@ -44,7 +44,7 @@ export default function TermsPage() {
 
       <h2>3. Payments &amp; Pricing</h2>
       <ul>
-        <li>Our Career Clarity Report is priced at <strong>&#8377;49 INR</strong> per report (inclusive of applicable taxes).</li>
+        <li>Our Career Clarity Report is priced at <strong>&#8377;99 INR</strong> per report (inclusive of applicable taxes).</li>
         <li>Payments are processed securely through <strong>Cashfree Payments</strong>, an RBI-approved payment gateway.</li>
         <li>We accept UPI, debit/credit cards, net banking, and popular wallets.</li>
         <li>All transactions are in Indian Rupees (INR).</li>
@@ -136,7 +136,7 @@ export default function TermsPage() {
 
       <div className="callout">
         <p className="mb-0">
-          <strong>Summary:</strong> You pay &#8377;49 INR, we generate an instant AI career report.
+          <strong>Summary:</strong> You pay &#8377;99 INR, we generate an instant AI career report.
           You can refund within 24 hours if unsatisfied. Use the advice as guidance, not as a final
           professional recommendation. Be kind, be honest, and reach out anytime at{" "}
           <a href="mailto:clarifypathsupport@gmail.com">clarifypathsupport@gmail.com</a>.

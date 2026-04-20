@@ -4,7 +4,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Refunds & Cancellations",
   description:
-    "Refund and cancellation policy for Career Clarity AI career reports. 24-hour full refund window, no questions asked. ₹49 one-time payment.",
+    "Refund and cancellation policy for Career Clarity AI career reports. 24-hour full refund window, no questions asked. ₹99 one-time payment.",
   alternates: { canonical: "https://clarifypath.com/refunds" },
 };
 
@@ -19,7 +19,7 @@ export default function RefundsPage() {
         <p className="mb-0">
           <strong>Quick summary:</strong> Not happy with your report? Email us at{" "}
           <a href="mailto:clarifypathsupport@gmail.com">clarifypathsupport@gmail.com</a> within{" "}
-          <strong>24 hours of payment</strong> and we will issue a <strong>full refund of &#8377;49</strong> —
+          <strong>24 hours of payment</strong> and we will issue a <strong>full refund of &#8377;99</strong> —
           no questions asked.
         </p>
       </div>
@@ -27,7 +27,7 @@ export default function RefundsPage() {
       <h2>1. Our Product</h2>
       <p>
         Career Clarity AI sells a single digital product: a personalized, AI-generated Career Clarity
-        Report priced at <strong>&#8377;49 INR</strong>. The report is delivered instantly upon successful
+        Report priced at <strong>&#8377;99 INR</strong>. The report is delivered instantly upon successful
         payment.
       </p>
 
@@ -39,7 +39,7 @@ export default function RefundsPage() {
       </p>
 
       <h2>3. Refund Eligibility</h2>
-      <p>You are eligible for a <strong>full refund of &#8377;49</strong> if:</p>
+      <p>You are eligible for a <strong>full refund of &#8377;99</strong> if:</p>
       <ul>
         <li>You request the refund within <strong>24 hours</strong> of the original payment.</li>
         <li>The payment was successfully charged to your account (we cannot refund transactions that did not go through).</li>

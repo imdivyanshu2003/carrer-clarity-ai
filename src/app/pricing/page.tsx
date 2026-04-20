@@ -18,7 +18,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Pricing & Products",
   description:
-    "Career Clarity AI Report — just ₹49 INR. One-time payment, no subscription. Instant AI-generated career guidance report with personality summary, top career matches & 30-day action plan.",
+    "Career Clarity AI Report — just ₹99 INR. One-time payment, no subscription. Instant AI-generated career guidance report with personality summary, top career matches & 30-day action plan.",
   alternates: { canonical: "https://clarifypath.com/pricing" },
 };
 
@@ -81,7 +81,7 @@ export default function PricingPage() {
             {/* Price */}
             <div className="flex items-baseline gap-2 mb-6 pb-6 border-b border-slate-100">
               <span className="text-5xl md:text-6xl font-extrabold text-slate-900">
-                &#8377;49
+                &#8377;99
               </span>
               <span className="text-lg font-semibold text-slate-500">INR</span>
               <span className="text-sm text-slate-500 ml-2">
@@ -161,7 +161,7 @@ export default function PricingPage() {
             {[
               {
                 q: "Is this a subscription?",
-                a: "No. It's a one-time payment of ₹49 INR for a single personalised report. We will never charge you again.",
+                a: "No. It's a one-time payment of ₹99 INR for a single personalised report. We will never charge you again.",
               },
               {
                 q: "What payment methods do you accept?",

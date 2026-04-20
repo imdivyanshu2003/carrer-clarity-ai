@@ -103,7 +103,7 @@ export default function BlogPost() {
             </tr>
           </thead>
           <tbody className="divide-y divide-slate-100">
-            <tr><td className="p-3 font-medium">Cost</td><td className="p-3">₹2,000–10,000</td><td className="p-3">₹49–499</td></tr>
+            <tr><td className="p-3 font-medium">Cost</td><td className="p-3">₹2,000–10,000</td><td className="p-3">₹99–499</td></tr>
             <tr><td className="p-3 font-medium">Time</td><td className="p-3">1-2 hours + scheduling</td><td className="p-3">5 minutes, instant</td></tr>
             <tr><td className="p-3 font-medium">Bias</td><td className="p-3">Possible human bias</td><td className="p-3">Data-driven, no bias</td></tr>
             <tr><td className="p-3 font-medium">Career Knowledge</td><td className="p-3">10-20 paths</td><td className="p-3">200+ paths in database</td></tr>
@@ -123,7 +123,7 @@ export default function BlogPost() {
         <li><strong>12 smart questions</strong> — designed to reveal your personality type, not just your academic preference</li>
         <li><strong>GPT-4 powered analysis</strong> — the same AI that powers ChatGPT analyzes your personality and generates career matches</li>
         <li><strong>Hindi & English</strong> — choose the language you&apos;re most comfortable in</li>
-        <li><strong>Only ₹49</strong> — 100x cheaper than a traditional counsellor</li>
+        <li><strong>Only ₹99</strong> — 50x cheaper than a traditional counsellor</li>
         <li><strong>5 minutes</strong> — no appointments, no waiting, instant results</li>
         <li><strong>30-day action plan</strong> — not just career suggestions, but actual steps to take this week</li>
       </ul>
@@ -176,7 +176,7 @@ export default function BlogPost() {
           <strong>The bottom line:</strong> AI career guidance isn&apos;t replacing human counsellors — it&apos;s
           making career guidance <strong>accessible to every student in India</strong>, regardless of their
           city, income, or background.{" "}
-          <a href="/">Try Career Clarity AI for ₹49 →</a>
+          <a href="/">Try Career Clarity AI for ₹99 →</a>
         </p>
       </div>
 

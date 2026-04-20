@@ -156,7 +156,7 @@ export default function BlogPost() {
         <li>A <strong>30-day action plan</strong> with weekly breakdown</li>
       </ul>
       <p>
-        It costs just ₹49 — less than a cup of coffee at Starbucks — and takes only 5 minutes.
+        It costs just ₹99 — less than a cup of coffee at Starbucks — and takes only 5 minutes.
       </p>
 
       <h2>Common Mistakes to Avoid</h2>
