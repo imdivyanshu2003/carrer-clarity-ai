@@ -6,7 +6,7 @@ import "./globals.css";
 export const metadata: Metadata = {
   metadataBase: new URL("https://clarifypath.com"),
   title: {
-    default: "Career Clarity AI — Find Your Perfect Career Path in 5 Minutes | Clarify Path",
+    default: "Career Clarity AI — Clear Career Direction in 5 Minutes",
     template: "%s | Career Clarity AI",
   },
   description:
