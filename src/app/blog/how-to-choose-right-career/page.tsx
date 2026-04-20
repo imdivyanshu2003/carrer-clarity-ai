@@ -15,6 +15,15 @@ export const metadata: Metadata = {
     "career confusion",
     "right career for me",
     "career counselling for students India",
+    "which career is best for me",
+    "how to find my passion",
+    "career selection tips",
+    "best career for my personality",
+    "career test for students",
+    "career guidance tips India",
+    "how to decide career after college",
+    "mujhe kya karna chahiye career",
+    "career kaise choose kare",
   ],
 };
 

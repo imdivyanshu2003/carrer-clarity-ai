@@ -14,6 +14,15 @@ export const metadata: Metadata = {
     "career after 12th commerce",
     "career after 12th arts",
     "career guidance after 12th India",
+    "best career options after 12th in India",
+    "career list after 12th",
+    "highest paying career after 12th",
+    "career options after 12th PCM",
+    "career options after 12th PCB",
+    "new age career after 12th",
+    "courses after 12th",
+    "what should I do after 12th",
+    "12th ke baad kya kare",
   ],
 };
 

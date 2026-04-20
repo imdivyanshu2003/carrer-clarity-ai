@@ -261,6 +261,28 @@ export default function LandingPage() {
           <li>30-day action plan with weekly breakdown</li>
           <li>Report delivered instantly + sent to your email</li>
         </ul>
+        <h3 className="text-lg font-semibold text-slate-800 mb-2">Best Career Guidance After 10th, 12th & College</h3>
+        <p className="text-sm text-slate-600 leading-relaxed mb-4">
+          Confused about what to do after 12th? Not sure which career options are best for Science,
+          Commerce, or Arts students? Career Clarity AI is the best career guidance website in India
+          for students who want clear, personalized career direction — not generic advice. Our AI career
+          aptitude test analyzes your unique personality and gives you career options that actually
+          match who you are. Whether you&apos;re looking for career counselling online, a free career quiz,
+          or a psychometric career test — Clarify Path has you covered.
+        </p>
+        <h3 className="text-lg font-semibold text-slate-800 mb-2">Frequently Asked Questions</h3>
+        <p className="text-sm text-slate-600 leading-relaxed mb-2">
+          <strong>Which career is best for me?</strong> That depends on your personality, not your marks.
+          Take our 5-minute AI career assessment to find your ideal career path based on your strengths and thinking style.
+        </p>
+        <p className="text-sm text-slate-600 leading-relaxed mb-2">
+          <strong>How much does career counselling cost?</strong> Traditional career counsellors charge
+          ₹2,000–10,000 per session. Career Clarity AI gives you a detailed, AI-powered career report for just ₹49.
+        </p>
+        <p className="text-sm text-slate-600 leading-relaxed mb-4">
+          <strong>Is this career test available in Hindi?</strong> Yes! Career Clarity AI supports both
+          Hindi and English. Choose your preferred language before starting the assessment.
+        </p>
       </section>
 
       {/* Language Selection Modal */}

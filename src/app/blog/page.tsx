@@ -7,6 +7,15 @@ export const metadata: Metadata = {
   description:
     "Read expert career guidance articles for Indian students. Tips on choosing the right career after 10th, 12th & college. AI-powered career advice by Clarify Path.",
   alternates: { canonical: "https://clarifypath.com/blog" },
+  keywords: [
+    "career guidance blog",
+    "career tips for students India",
+    "career advice blog",
+    "career options India",
+    "career after 12th blog",
+    "student career planning tips",
+    "AI career guidance blog",
+  ],
 };
 
 const posts = [

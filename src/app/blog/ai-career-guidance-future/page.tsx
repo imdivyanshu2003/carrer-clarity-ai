@@ -15,6 +15,15 @@ export const metadata: Metadata = {
     "career clarity AI",
     "online career test",
     "AI career assessment India",
+    "best career counselling website",
+    "career counselling fees India",
+    "free career guidance online",
+    "psychometric test for career",
+    "career aptitude test online",
+    "AI career planning",
+    "career counselling near me",
+    "online career guidance for students India",
+    "career test AI powered",
   ],
 };
 
