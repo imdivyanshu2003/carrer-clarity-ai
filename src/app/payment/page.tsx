@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Lock, CheckCircle, Sparkles, FileText, Ban, Zap, Shield, Mail, Star, BadgeCheck } from "lucide-react";
 import { useApp } from "@/context/AppContext";
+import { trackInitiateCheckout, trackPurchase } from "@/lib/meta-pixel";
 
 declare global {
   interface Window {
@@ -101,6 +102,7 @@ export default function PaymentPage() {
         redirectTarget: "_modal",
       };
 
+      trackInitiateCheckout(99);
       const result = await cashfree.checkout(checkoutOptions);
 
       if (result.error) {
@@ -125,6 +127,7 @@ export default function PaymentPage() {
 
       if (verifyRes.ok && verifyData.verified) {
         setIsPaid(true);
+        trackPurchase(99);
         router.push("/upsell");
       } else {
         alert(

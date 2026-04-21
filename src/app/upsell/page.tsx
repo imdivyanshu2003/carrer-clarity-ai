@@ -15,6 +15,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { useApp } from "@/context/AppContext";
+import { trackInitiateCheckout, trackPurchase } from "@/lib/meta-pixel";
 
 declare global {
   interface Window {
@@ -127,6 +128,7 @@ export default function UpsellPage() {
           : "sandbox";
 
       const cashfree = window.Cashfree({ mode });
+      trackInitiateCheckout(199);
       const result = await cashfree.checkout({
         paymentSessionId: orderData.paymentSessionId,
         redirectTarget: "_modal",
@@ -153,6 +155,7 @@ export default function UpsellPage() {
 
       if (verifyRes.ok && verifyData.verified) {
         setIsProcessing(false);
+        trackPurchase(199);
         await generatePremiumReport();
       } else {
         alert(

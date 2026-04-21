@@ -13,6 +13,7 @@ import QuestionCard from "@/components/QuestionCard";
 import ProgressBar from "@/components/ProgressBar";
 import AnalyzingAnimation from "@/components/AnalyzingAnimation";
 import { UserAnswer } from "@/lib/types";
+import { trackLead } from "@/lib/meta-pixel";
 
 export default function QuizPage() {
   const router = useRouter();
@@ -71,6 +72,7 @@ export default function QuizPage() {
 
         setReport(data.report);
         setIsAnalyzing(false);
+        trackLead();
         router.push("/payment");
       } catch (error) {
         console.error("Analysis error:", error);
