@@ -100,6 +100,9 @@ export const metadata: Metadata = {
   },
   verification: {
     google: "IpG_1DRylMwfFrcfTUQaqRG54chFsNH0TGnh791KORw",
+    other: {
+      "facebook-domain-verification": ["nq8dt2fn8slt6vuf6lsk87dg1o08rr"],
+    },
   },
 };
 
