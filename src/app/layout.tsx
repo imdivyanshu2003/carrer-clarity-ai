@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Script from "next/script";
+import { Analytics } from "@vercel/analytics/react";
 import { AppProvider } from "@/context/AppContext";
 import Footer from "@/components/Footer";
 import { META_PIXEL_ID } from "@/lib/meta-pixel";
@@ -256,6 +257,7 @@ export default function RootLayout({
           <div className="flex-1">{children}</div>
           <Footer />
         </AppProvider>
+        <Analytics />
       </body>
     </html>
   );
