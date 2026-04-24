@@ -32,6 +32,12 @@ export default function LandingPage() {
 
   const startNow = () => setShowLanguageModal(true);
 
+  // One-click start — no modals, straight to quiz
+  const startInLanguage = (lang: Language) => {
+    setLanguage(lang);
+    router.push("/quiz");
+  };
+
   return (
     <main className="min-h-screen flex flex-col items-center relative">
 
@@ -71,19 +77,31 @@ export default function LandingPage() {
             transition={{ duration: 0.5, delay: 0.3 }}
             className="flex flex-col items-center gap-3"
           >
-            <motion.button
-              whileHover={{ scale: 1.03 }}
-              whileTap={{ scale: 0.97 }}
-              onClick={startNow}
-              className="btn-primary text-base px-8 py-4"
-            >
-              Start Now for &#8377;99
-              <ArrowRight size={18} />
-            </motion.button>
-            <div className="flex flex-wrap items-center justify-center gap-3 mt-2 text-xs text-slate-600">
-              <span className="flex items-center gap-1"><CheckCircle size={13} className="text-emerald-500" /> Takes only 5 minutes</span>
-              <span className="flex items-center gap-1"><CheckCircle size={13} className="text-emerald-500" /> No login required</span>
-              <span className="flex items-center gap-1"><CheckCircle size={13} className="text-emerald-500" /> Instant report</span>
+            <div className="flex flex-col sm:flex-row gap-3 w-full sm:w-auto justify-center">
+              <motion.button
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                onClick={() => startInLanguage("en")}
+                className="btn-primary text-base px-8 py-4"
+              >
+                Start Free Quiz
+                <ArrowRight size={18} />
+              </motion.button>
+              <motion.button
+                whileHover={{ scale: 1.03 }}
+                whileTap={{ scale: 0.97 }}
+                onClick={() => startInLanguage("hi")}
+                className="btn-primary text-base px-8 py-4 bg-white text-slate-900 border-2 border-slate-900 hover:bg-slate-50"
+                style={{ background: "white", color: "#0f172a" }}
+              >
+                हिंदी में शुरू करें
+                <ArrowRight size={18} />
+              </motion.button>
+            </div>
+            <div className="flex flex-wrap items-center justify-center gap-3 mt-3 text-xs text-slate-600">
+              <span className="flex items-center gap-1"><CheckCircle size={13} className="text-emerald-500" /> Quiz is 100% FREE</span>
+              <span className="flex items-center gap-1"><CheckCircle size={13} className="text-emerald-500" /> Takes 5 minutes</span>
+              <span className="flex items-center gap-1"><CheckCircle size={13} className="text-emerald-500" /> No signup needed</span>
             </div>
           </motion.div>
 
@@ -268,10 +286,10 @@ export default function LandingPage() {
               <motion.button
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={startNow}
+                onClick={() => startInLanguage("en")}
                 className="btn-primary w-full py-4 text-base"
               >
-                Unlock My Report
+                Start Free Quiz Now
                 <ArrowRight size={18} />
               </motion.button>
               <p className="text-xs text-slate-500 mt-3">Instant result after payment &middot; No signup needed</p>
@@ -378,10 +396,10 @@ export default function LandingPage() {
             <motion.button
               whileHover={{ scale: 1.03 }}
               whileTap={{ scale: 0.97 }}
-              onClick={startNow}
+              onClick={() => startInLanguage("en")}
               className="btn-primary text-base px-8 py-4"
             >
-              Get My Clarity Now &mdash; &#8377;99
+              Start Free Quiz &rarr; Get Clarity
               <ArrowRight size={18} />
             </motion.button>
           </motion.div>
