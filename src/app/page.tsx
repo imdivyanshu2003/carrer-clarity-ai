@@ -62,7 +62,8 @@ export default function LandingPage() {
             transition={{ duration: 0.6, delay: 0.1 }}
           >
             <h1 className="text-4xl sm:text-5xl md:text-7xl font-extrabold leading-[1.05] tracking-tight mb-5">
-              <span className="gradient-text">Get Clear Career Direction</span>
+              <span className="text-slate-900 block mb-2 text-2xl sm:text-3xl md:text-4xl">Stop Guessing Your Future.</span>
+              <span className="gradient-text">Find Your Perfect Career</span>
               <br />
               <span className="text-slate-900">in Just 5 Minutes</span>
             </h1>
@@ -82,7 +83,7 @@ export default function LandingPage() {
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 onClick={() => startInLanguage("en")}
-                className="btn-primary text-base px-8 py-4"
+                className="btn-primary text-base px-8 py-4 w-full sm:w-auto"
               >
                 Start Free Quiz
                 <ArrowRight size={18} />
@@ -91,7 +92,7 @@ export default function LandingPage() {
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 onClick={() => startInLanguage("hi")}
-                className="btn-primary text-base px-8 py-4 bg-white text-slate-900 border-2 border-slate-900 hover:bg-slate-50"
+                className="btn-primary text-base px-8 py-4 bg-white text-slate-900 border-2 border-slate-900 hover:bg-slate-50 w-full sm:w-auto"
                 style={{ background: "white", color: "#0f172a" }}
               >
                 हिंदी में शुरू करें

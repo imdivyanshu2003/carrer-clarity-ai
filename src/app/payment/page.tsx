@@ -221,7 +221,30 @@ export default function PaymentPage() {
           </motion.div>
 
           <h1 className="text-2xl font-bold text-slate-900 mb-2">{t.ready}</h1>
-          <p className="text-sm text-slate-500 mb-7 leading-relaxed">{t.subtitle}</p>
+          <p className="text-sm text-slate-500 mb-5 leading-relaxed">{t.subtitle}</p>
+
+          {/* PERSONALIZED TEASER */}
+          <div className="text-left mb-6 p-5 rounded-xl bg-violet-50 border border-violet-100 relative overflow-hidden shadow-sm">
+            <div className="absolute top-0 left-0 w-1 h-full bg-violet-500"></div>
+            <div className="flex items-center gap-2 mb-2">
+              <Sparkles size={14} className="text-violet-600" />
+              <p className="text-[11px] font-bold text-violet-700 uppercase tracking-wider">
+                {language === "hi" ? "AI Analysis Teaser" : "AI Analysis Teaser"}
+              </p>
+            </div>
+            <p className="text-[15px] text-slate-800 italic leading-relaxed font-medium mb-3">
+              &ldquo;{report.personalitySummary.split('.')[0] || report.personalitySummary}.&rdquo;
+            </p>
+            <div className="flex flex-wrap gap-2 mb-3">
+              <span className="px-2 py-1 rounded-md bg-white border border-violet-100 text-[11px] font-semibold text-violet-700">
+                {language === "hi" ? "Thinking Style: " : "Thinking Style: "}{report.thinkingStyle}
+              </span>
+            </div>
+            <div className="text-[11px] font-medium text-slate-500 flex items-center gap-1">
+              <Lock size={12} className="text-violet-400" />
+              {language === "hi" ? "Top 3 Careers unlock करने के लिए payment करें" : "Unlock your full report to see your Top 3 Career matches"}
+            </div>
+          </div>
 
           {/* What's included */}
           <div className="text-left space-y-2.5 mb-7 p-4 rounded-xl bg-slate-50 border border-slate-100">
